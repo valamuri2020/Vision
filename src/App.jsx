@@ -3,17 +3,21 @@ import { Dashboard } from "./components/dashboard/dashboard";
 import { SignIn } from "./components/signIn/signIn";
 import { Register } from "./components/register/register.jsx";
 import { List } from "./components/list/list";
+import { AuthProvider } from "./contexts/AuthContext";
+import  PrivateRoute  from "./components/PrivateRoute";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Switch>
-          <Route path="/" exact component={SignIn}></Route>
-          <Route path="/register" component={Register}></Route>
-          <Route path="/dashboard" component={Dashboard}></Route>
-          <Route path="/list/:id" component={List}></Route>
-        </Switch>
+        <AuthProvider>
+          <Switch>
+            <PrivateRoute path="/" exact component={Dashboard}></PrivateRoute>
+            <Route path="/register" component={Register}></Route>
+            <Route path="/signin" component={SignIn}></Route>
+            <Route path="/list/:id" component={List}></Route>
+          </Switch>
+        </AuthProvider>
       </Router>
     </div>
   );

@@ -3,10 +3,12 @@ import { Dashboard } from "./components/dashboard/dashboard";
 import { SignIn } from "./components/signIn/signIn";
 import { Register } from "./components/register/register.jsx";
 import { List } from "./components/list/list";
+import Navbar from "./components/Navbar/Navbar.jsx";
 
 function App() {
   return (
     <div className="App">
+      <Navbar/>
       <Router>
         <Switch>
           <Route path="/" exact component={SignIn}></Route>

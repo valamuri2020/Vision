@@ -10,6 +10,7 @@ import {
   WhiteFormLabel,
   Textbox,
   SignInText,
+  BottomLinkText
 } from "../register/registerStyles";
 import { Link, useHistory } from "react-router-dom";
 
@@ -55,13 +56,13 @@ export const ForgotPassword = (props) => {
               </SubmitButton>
             </Form>
 
-            <Link to="/forgot-password" style={{ textDecoration: "none" }}>
-              <p style={{color: "#cccccc", textAlign: "center"}}>Login</p>
+            <Link to="/signin" style={{ textDecoration: "none" }}>
+              <p style={{color: "#cccccc", textAlign: "center", marginTop: "5px", paddingBottom: "0px"}}>Sign In</p>
             </Link>
           </CardContent>
         </DarkPinkCard>
         <SignInText>
-          Don't have an account? <Link to="/register">Sign Up</Link>
+          Don't have an account? <Link to="/register"><BottomLinkText>Sign Up</BottomLinkText></Link>
         </SignInText>
       </ContentWrapper>
     </RegisterContainer>

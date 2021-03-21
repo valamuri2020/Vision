@@ -10,6 +10,7 @@ import {
   WhiteFormLabel,
   Textbox,
   SignInText,
+  BottomLinkText
 } from "./registerStyles";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
@@ -71,7 +72,7 @@ export const Register = (props) => {
           </CardContent>
         </DarkPinkCard>
         <SignInText>
-          Already Have an account? <Link to="/signin">Sign In</Link>
+          Already Have an account? <Link to="/signin"><BottomLinkText>Sign In</BottomLinkText></Link>
         </SignInText>
       </ContentWrapper>
     </RegisterContainer>

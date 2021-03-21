@@ -64,6 +64,13 @@ export const SignInText = styled.div`
   width: 100%;
 `;
 
+export const ForgotPassword = styled(SignInText)`
+  color: ${gray};
+  &:hover {
+    text-decoration: none;
+  }
+`;
+
 export const SubmitButton = styled(Button)`
   background-color: ${lightpink};
   border-color: ${lightpink};

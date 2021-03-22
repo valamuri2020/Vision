@@ -12,6 +12,7 @@ import {
   SignInText,
   BottomLinkText
 } from "../register/registerStyles";
+import { GrayText } from "./forgotPasswordStyles"
 import { Link, useHistory } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext";
@@ -51,13 +52,13 @@ export const ForgotPassword = (props) => {
                 <Textbox type="email" required ref={emailRef}></Textbox>
               </Form.Group>
               
-              <SubmitButton type="submit" disabled={loading}>
+              <SubmitButton type="submit" disabled={loading} style={{marginBottom: "10px"}}>
                 Reset Password
               </SubmitButton>
             </Form>
 
             <Link to="/signin" style={{ textDecoration: "none" }}>
-              <p style={{color: "#cccccc", textAlign: "center", marginTop: "5px", paddingBottom: "0px"}}>Sign In</p>
+              <GrayText>Sign In</GrayText>
             </Link>
           </CardContent>
         </DarkPinkCard>

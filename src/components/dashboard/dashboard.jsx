@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { Button } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 
 export const Dashboard = (props) => {
   const [error, setError] = useState("");
-  const { currentUser, logout } = useAuth();
+  const { logout } = useAuth();
   const history = useHistory();
   const handleLogOut = async () => {
     setError("");
@@ -19,7 +19,8 @@ export const Dashboard = (props) => {
   return (
     <>
       <h1>Dashboard Page</h1>
-      <Button varaint="link" onClick={handleLogOut}>
+      {error && <Alert variant="warning">{error}</Alert>}
+      <Button variant="link" onClick={handleLogOut}>
         Sign Out
       </Button>
     </>

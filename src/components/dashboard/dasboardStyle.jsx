@@ -3,20 +3,20 @@ import styled from 'styled-components'
 const mobileSize = '768px';
 
 export const Container = styled.div`
-    margin: 2rem 7rem;
+    margin: 5rem 7rem;
     display:flex; 
     flex-direction: column;
     @media only screen and (max-width: ${mobileSize}) {
-        margin: 2rem 1rem;
+        margin: 5rem 1rem;
     }
 `
 
 export const Card = styled.div`
     border: 1px solid black; 
-    border-radius: 3rem; 
+    border-radius: 2rem; 
     display:flex; 
     min-height:15rem;
-    padding:2em;
+    padding:1em;
     background:white;
     margin:1em;
     max-width: 100rem;
@@ -53,7 +53,6 @@ export const SubCard = styled.div`
     display:flex;
     flex-direction:column; 
     flex-wrap: wrap;
-    margin-left:20px;
 `
 
 export const AddSubCard = styled.div`
@@ -62,28 +61,25 @@ export const AddSubCard = styled.div`
     margin-left:20px;
 `
 
-export const Information = styled.div`
+export const Text = styled.div`
     font-style: italic;
     line-height: 1em;
-    height: 3em;
+    height: 5em;
     overflow: hidden;
-    margin: 1em 0;
     text-overflow: ellipsis;
 `
 
 export const SubData = styled.div`
-    margin-left: 1em;
     display:flex; 
-    
+    flow-direction:column;
     >.p {
         color: gray;
     }
 `
-export const Text = styled.div `
-    color: blue; 
-    font-size: 1em; 
 
-    font-weight: bold;
+export const Information = styled.div`
+    display:flex;
+    flex-direction:column;
 `
 export const Heading = styled.div`
     display:flex; 
@@ -103,9 +99,10 @@ export const Data = styled.div`
 `
 
 export const Image = styled.img `
-   width: 180px; 
-   object-fit: cover;
+   width: 140px; 
+   object-fit: scale-down;
    border-radius:20px; 
+   margin-right: 1em;
    padding:5px;
 `
 

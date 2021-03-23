@@ -1,5 +1,5 @@
 import React from 'react'
-import { SubCard, Content, Card, Image, Information } from "./dasboardStyle.jsx" 
+import { SubCard, Content, Card, Text, Image, Information } from "./dasboardStyle.jsx" 
 import logo from './waterloo-logo.jpg'
 
 export default function DashboardCard({ value, ...props }) {
@@ -10,14 +10,20 @@ export default function DashboardCard({ value, ...props }) {
             <SubCard>
                 <h3>{university}</h3>
                 <Content> {location} </Content>
-                <Content color={'#46b3e6'}>
-                    {cost}
-                </Content>
-                <Content color={'#30c735'}>
-                    Average ACT Score: {score}
-                </Content>
-                <Information>                   
-                    {information}
+                <Information>
+                    <div>
+                        <Content color={'#46b3e6'}>
+                            {cost}
+                        </Content>
+                        <Content color={'#30c735'}>
+                            Average ACT Score: {score}
+                        </Content>
+                    </div>
+                    <div>
+                        <Text>                   
+                            {information}
+                        </Text>
+                    </div>
                 </Information>
             </SubCard>
         </Card>

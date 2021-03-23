@@ -20,8 +20,7 @@ export const Dashboard = ({...props}) => {
            <Link to="/list/1">
                <AddCard>
                     <AddSubCard>
-                        <div><RiAddCircleFill style={{fontSize:'4em'}}/></div>
-                        <Heading> Add to your list </Heading> 
+                        <div><RiAddCircleFill style={{fontSize:'4em', color:'#F06B6B'}}/></div>
                     </AddSubCard>
                 </AddCard>
            </Link>

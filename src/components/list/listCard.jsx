@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 export default function ListCard() {
     return (
-    
         <Card>
             <Element>
                 <Heading>University</Heading>
@@ -26,18 +25,19 @@ export default function ListCard() {
             </Element>
             <Element>
                 <Heading>AVG Cost</Heading>
-                <Input/> to <Input/>
+                <Input/>
             </Element>
             <Element>
                 <Heading>AVG ACT/SAT</Heading>
-                <Input/>
+                <span>Around some estimated amount from db</span>
             </Element>
             <Element>
                 <Heading>Acceptance %</Heading>
-                <Input/>
+                <span>Around some estimated amount from db</span>
             </Element>
             <Link to="/dashboard">
-                <Button>
+                <Button size="lg" block style={{margin: '10px 0px'}} color='danger'> 
+                    {/* color='#F06B6B' for button does not work as expected */}
                     Submit
                 </Button>
             </Link>

@@ -11,7 +11,7 @@ export const Container = styled.div`
     }
 `
 export const Element = styled.div`
-    margin:20px 10px; 
+    margin:0.5em; 
 
 `
 export const Heading = styled.div`

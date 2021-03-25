@@ -7,7 +7,7 @@ import { Alert, Button } from "react-bootstrap";
 
 export default function Navbar(props) {
   const [error, setError] = useState("");
-  const { logout } = useAuth;
+  const { logout } = useAuth();
   const history = useHistory();
 
   const handleLogOut = async () => {
@@ -18,13 +18,6 @@ export default function Navbar(props) {
     } catch (err) {
       console.log(err);
     }
-    // useAuth.logout().then(function() {
-    //     // Sign-out successful.
-    //     console.log('User Logged Out!');
-    // }).catch(function(error) {
-    //     // An error happened.
-    //     console.log(error);
-    // });
   };
   return (
     <Container>

@@ -11,9 +11,9 @@ import  PrivateRoute  from "./components/PrivateRoute";
 function App() {
   return (
     <div className="App">
-      <Navbar/>
       <Router>
         <AuthProvider>
+      <Navbar/>
           <Switch>
             <PrivateRoute path="/" exact component={Dashboard}></PrivateRoute>
             <Route path="/register" component={Register}></Route>

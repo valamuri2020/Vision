@@ -35,7 +35,7 @@ export default function ListCard() {
                 <Heading>Acceptance %</Heading>
                 <span>Around some estimated amount from db</span>
             </Element>
-            <Link to="/dashboard">
+            <Link to="/">
                 <Button size="lg" block style={{margin: '10px 0px'}} color='danger'> 
                     {/* color='#F06B6B' for button does not work as expected */}
                     Submit

@@ -10,9 +10,9 @@ import {
   WhiteFormLabel,
   Textbox,
   SignInText,
-  BottomLinkText
+  BottomLinkText,
 } from "../register/registerStyles";
-import { GrayText } from "./forgotPasswordStyles"
+import { GrayText } from "./forgotPasswordStyles";
 import { Link, useHistory } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext";
@@ -31,7 +31,7 @@ export const ForgotPassword = (props) => {
       setError("");
       setLoading(true);
       await resetPassword(emailRef.current.value);
-      setMessage("Check your inbox for further instructions")
+      setMessage("Check your inbox for further instructions");
     } catch {
       setError("Failed to reset password");
     }
@@ -51,8 +51,12 @@ export const ForgotPassword = (props) => {
                 <WhiteFormLabel>Email</WhiteFormLabel>
                 <Textbox type="email" required ref={emailRef}></Textbox>
               </Form.Group>
-              
-              <SubmitButton type="submit" disabled={loading} style={{marginBottom: "10px"}}>
+
+              <SubmitButton
+                type="submit"
+                disabled={loading}
+                style={{ marginBottom: "10px" }}
+              >
                 Reset Password
               </SubmitButton>
             </Form>
@@ -63,7 +67,10 @@ export const ForgotPassword = (props) => {
           </CardContent>
         </DarkPinkCard>
         <SignInText>
-          Don't have an account? <Link to="/register"><BottomLinkText>Sign Up</BottomLinkText></Link>
+          Don't have an account?{" "}
+          <Link to="/register">
+            <BottomLinkText>Sign Up</BottomLinkText>
+          </Link>
         </SignInText>
       </ContentWrapper>
     </RegisterContainer>

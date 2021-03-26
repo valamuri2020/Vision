@@ -3,6 +3,7 @@ import { Container, Heading, AddCard, AddSubCard } from "./dasboardStyle.jsx";
 import { RiAddCircleFill } from "react-icons/ri";
 import DashboardCard from "./dashboardCard.jsx";
 import { Link } from "react-router-dom";
+import Navbar from "../Navbar/Navbar"
 
 export const Dashboard = ({ ...props }) => {
   const university = "University of Waterloo";
@@ -14,6 +15,8 @@ export const Dashboard = ({ ...props }) => {
 
   const value = { university, location, cost, score, information };
   return (
+    <>
+    <Navbar/>
     <Container>
       <DashboardCard value={value} />
       <DashboardCard value={value} />
@@ -28,6 +31,7 @@ export const Dashboard = ({ ...props }) => {
         </AddCard>
       </Link>
     </Container>
+    </>
   );
 };
 

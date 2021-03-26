@@ -3,7 +3,6 @@ import { Dashboard } from "./components/dashboard/dashboard";
 import { SignIn } from "./components/signIn/signIn";
 import { Register } from "./components/register/register.jsx";
 import { List } from "./components/list/list";
-import Navbar from "./components/Navbar/Navbar.jsx";
 import { ForgotPassword } from "./components/forgot-password/forgotPassword";
 import { AuthProvider } from "./contexts/AuthContext";
 import  PrivateRoute  from "./components/PrivateRoute";
@@ -13,7 +12,6 @@ function App() {
     <div className="App">
       <Router>
         <AuthProvider>
-      <Navbar/>
           <Switch>
             <PrivateRoute path="/" exact component={Dashboard}></PrivateRoute>
             <Route path="/register" component={Register}></Route>

@@ -23,10 +23,12 @@ export default function Navbar(props) {
     <Container>
       <h3>Vision</h3>
       {error && <Alert variant="warning">{error}</Alert>}
-      <Button variant="link" onClick={handleLogOut}>
-        Sign Out
-      </Button>
-      <FaUserCircle style={{ fontSize: "2em" }} />
+      <div>
+        <Button variant="link" style={{color: 'white'}} onClick={handleLogOut}>
+          Sign Out
+        </Button>
+        <FaUserCircle style={{ fontSize: "2em" }} />
+      </div>
     </Container>
   );
 }

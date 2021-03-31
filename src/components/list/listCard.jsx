@@ -3,6 +3,7 @@ import { Card, Element, Heading } from "./listStyles.jsx";
 import { FormGroup, Button, Input } from "reactstrap";
 import { Link } from "react-router-dom";
 import firebase from "firebase";
+import { auth } from "../../firebase";
 
 export default function ListCard() {
   const db = firebase.firestore();
@@ -26,14 +27,14 @@ export default function ListCard() {
 
   const handleSubmit = () => {
     console.log("clicked");
-    db.collection("users")
+    db.collection("users").doc(auth.currentUser.uid).collection("colleges")
       // TODO need to make all these fields values form the inputs, not hardcoded
       // TODO add uid logic so that this specific user's list is updated and not all users
       .add({
         name: "ui test",
         location: "some random place",
         avg_cost: 1738,
-        avg_act: 21,
+        avg_act: 22,
         avg_sat: 1300,
         acceptance_rate: 0.23,
       })

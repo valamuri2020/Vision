@@ -15,7 +15,7 @@ export const Card = styled.div`
   border: 1px solid black;
   border-radius: 2rem;
   display: flex;
-  min-height: 15rem;
+  min-height: 8rem;
   padding: 1em;
   background: white;
   margin: 1em;
@@ -58,7 +58,6 @@ export const SubCard = styled.div`
 export const AddSubCard = styled.div`
   display: flex;
   justify-content: center;
-  margin-left: 20px;
 `;
 
 export const Text = styled.div`
@@ -80,6 +79,7 @@ export const SubData = styled.div`
 export const Information = styled.div`
   display: flex;
   flex-direction: column;
+  margin-right: 2rem;
 `;
 export const Heading = styled.div`
   display: flex;

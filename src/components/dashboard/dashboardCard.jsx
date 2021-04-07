@@ -9,8 +9,8 @@ import {
 } from "./dasboardStyle.jsx";
 import logo from "./waterloo-logo.jpg";
 
-export default function DashboardCard({ value, ...props }) {
-  const { university, location, cost, score, information } = value;
+export const DashboardCard = ({ value, ...props }) => {
+  const { university, location, cost, SATscore, ACTscore, information } = value;
   return (
     <Card>
       <Image src={logo} />
@@ -20,7 +20,8 @@ export default function DashboardCard({ value, ...props }) {
         <Information>
           <div>
             <Content color={"#46b3e6"}>{cost}</Content>
-            <Content color={"#30c735"}>Average ACT Score: {score}</Content>
+            <Content color={"#30c735"}>Average SAT: {SATscore}</Content>
+            <Content color={"#30c735"}>Average ACT: {ACTscore}</Content>
           </div>
           <div>
             <Text>{information}</Text>

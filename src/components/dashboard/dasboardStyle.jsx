@@ -1,6 +1,11 @@
 import styled from "styled-components";
+import { Col } from "react-bootstrap";
 
 const mobileSize = "768px";
+const gray = "#ccc";
+const darkpink = "#853F3F";
+const lightpink = "#F06B6B";
+const palepink = "#f2b8b8";
 
 export const Container = styled.div`
   margin: 5rem 7rem;
@@ -123,4 +128,12 @@ export const AddData = styled.div`
   font-size: 14px;
   border: 2px dashed #767676;
   border-radius: 4px;
+`;
+
+export const Divider = styled(Col)`
+  height: 5px;
+  background-color: ${props => props.color || darkpink };
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 22px;
 `;

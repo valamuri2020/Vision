@@ -19,10 +19,10 @@ export default function DashboardCard({ college, ...props }) {
         {/* information about the institute itself */}
         <Information>
           <Content>
-            <a href={INSTURL}><h3>{INSTNM}</h3></a>
+            <h3>{INSTNM}</h3>
           </Content>
           <Content> <HiLocationMarker style={iconStyle}/> {CITY}, {STABBR} </Content>
-          <Content> <FaEdit style={iconStyle}/>Edit this information</Content>
+          <Content> <a href={`/list/${INSTNM}`}><FaEdit style={iconStyle}/>Edit this information</a></Content>
         </Information>
         {/* information about the academics focused info */}
         <Information>

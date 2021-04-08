@@ -11,6 +11,7 @@ export const Dashboard = ({ ...props }) => {
   const [colleges, setColleges] = useState([]);
   const db = firebase.firestore();
 
+  // get user's list based on their unique firebase auth id
   useEffect(() => {
     db.collection("users").doc(auth.currentUser.uid).collection("colleges")
     .get()
@@ -20,22 +21,21 @@ export const Dashboard = ({ ...props }) => {
         temp = [...temp, {...doc.data() }]
       });
       setColleges(temp)
-      console.log(colleges)
     })
     .catch((error) => {
       console.error(error);
     });
   }, [])
 
-  const painOptionDivs = colleges.map((val) => (
-    <DashboardCard college={val} />
+  const collegeCards = colleges.map((val, index) => (
+    <DashboardCard college={val} key={index} />
   ));
 
   return (
     <>
     <Navbar/>
     <Container>
-      {painOptionDivs}
+      {collegeCards}
       <Link to="/list/1">
         <AddCard>
           <AddSubCard>

@@ -12,3 +12,9 @@ export const Container = styled.div`
   align-items: center;
   z-index:2;
 `;
+
+export const Title = styled.h3`
+  a {
+    color:white;
+  }
+`

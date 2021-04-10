@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Element, Heading, Search, College } from "./listStyles.jsx";
-import { Button, Input} from "reactstrap";
+import { Button, Input } from "reactstrap";
 import { Link } from "react-router-dom";
 import firebase from "firebase";
 import { auth } from "../../firebase";
 
-export default function ListCard() {
+export default function ListCard({ collegeId, ...props }) {
   const db = firebase.firestore();
   const [inputValue, setInputValue] = useState();
   const [colleges, setColleges] = useState([]);
   const [selectedCollege, setSelectedCollege] = useState([]);
-
+  
   const handleFilter = () => {
     if (inputValue) {
       db.collection("colleges")
@@ -28,9 +28,22 @@ export default function ListCard() {
   };
 
   const handleSubmit = () => {
-    db.collection("users").doc(auth.currentUser.uid).collection("colleges")
-      // creates or finds a doc with the user id logged in, saves a college doc within the user doc
-      .add(selectedCollege)
+    
+    const Ref = db.collection("users").doc(auth.currentUser.uid).collection("colleges")
+
+    if (collegeId) {
+      // find the college user wants to edit by id and update info based on user input in this form
+      Ref.doc(`${collegeId}`)
+      .set(selectedCollege)
+      .then(() => {
+        console.log('edited college document successfully')
+      })
+      .catch(err => console.log(err))
+      return
+    }
+
+    // creates or finds a doc with the user id logged in, saves a college doc within the user doc
+    Ref.add(selectedCollege)
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
       })
@@ -38,12 +51,28 @@ export default function ListCard() {
         console.error("Error adding document: ", error);
       });
   };
+
+  useEffect(() => {
+    // if a collegeId is passed as a parameter, prefill the text boxes with college info
+    // find the college selected by finding the unique document id for the college in the user's list
+    if (collegeId) {
+      db.collection("users").doc(auth.currentUser.uid).collection("colleges").doc(`${collegeId}`)
+      .get()
+      .then((response) => {
+        console.log(response.data())
+        setSelectedCollege(response.data())
+      })
+    }
+  }, [])
+
+
   return (
     <Card>
       <Element>
         <Heading>University</Heading>
         <Search>
-          <Input onChange={(e) => setInputValue(e.target.value)}/>
+          {/* if the user has already selected a university or wants to edit an info of a uni from dashboard, prefill name here */}
+          <Input onChange={(e) => setInputValue(e.target.value)} value={selectedCollege?.["INSTNM"]}/>
           <Button style={{ marginLeft: '0.5em' }} onClick={handleFilter}> Submit </Button>
         </Search>
         {colleges?.map((college, key) => {
@@ -60,7 +89,11 @@ export default function ListCard() {
       </Element>
       <Element>
         <Heading>AVG Cost</Heading>
-        <Input onChange={(e) => {setSelectedCollege({...selectedCollege, AVG_COST: e.target.value})}}/>
+        {/* if university is selected, show finance calculator for applicable institute */}
+        { selectedCollege.length > 0 && <div>
+          To find out the estimated costs for you, visit the institute's official website: <a>{selectedCollege?.["NPCURL"]}</a>
+        </div>}
+        <Input value={selectedCollege?.["AVG_COST"]} onChange={(e) => {setSelectedCollege({...selectedCollege, AVG_COST: e.target.value})}}/>
       </Element>
       <Element>
         <Heading>AVG SAT</Heading>
@@ -73,6 +106,10 @@ export default function ListCard() {
       <Element>
         <Heading>Acceptance %</Heading>
         <Input value={selectedCollege?.["ACTENMID"]} onChange={(e) => {setSelectedCollege({ACTENMID: e.target.value})}}/>
+      </Element>
+      <Element>
+        <Heading> Additional Notes </Heading>
+        <Input type="textarea" value={selectedCollege?.["ADD_NOTES"]} onChange={(e) => {setSelectedCollege({ADD_NOTES: e.target.value})}}/>
       </Element>
         <Link to="/">
           <Button

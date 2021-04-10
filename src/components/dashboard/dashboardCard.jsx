@@ -11,18 +11,17 @@ import { FaEdit } from 'react-icons/fa'
 
 
 export default function DashboardCard({ college, ...props }) {
-  const { INSTNM, CITY, ADM_RATE_ALL, STABBR, AVG_COST, SAT_AVG_ALL, INSTURL, ACT_AVG } = college;
+  const { DOCUMENT_ID, INSTNM, CITY, ADM_RATE_ALL, STABBR, AVG_COST, SAT_AVG_ALL, INSTURL, ACT_AVG } = college;
 
   const iconStyle = { fontSize: '24px', margin: '0px 10px' }
   return (
     <Card>
-        {/* information about the institute itself */}
         <Information>
           <Content>
             <h3>{INSTNM}</h3>
           </Content>
           <Content> <HiLocationMarker style={iconStyle}/> {CITY}, {STABBR} </Content>
-          <Content> <a href={`/list/${INSTNM}`}><FaEdit style={iconStyle}/>Edit this information</a></Content>
+          <Content> <a href={`/list/${DOCUMENT_ID}`}><FaEdit style={iconStyle}/>Edit this information</a></Content>
         </Information>
         {/* information about the academics focused info */}
         <Information>

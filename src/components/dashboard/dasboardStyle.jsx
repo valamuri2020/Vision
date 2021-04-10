@@ -82,6 +82,10 @@ export const Information = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 2rem;
+  width:33%;
+  @media only screen and (max-width: ${mobileSize}) {
+    width:100%;
+  }
 `;
 export const Heading = styled.div`
   display: flex;

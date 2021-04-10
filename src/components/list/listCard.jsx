@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Element, Heading, Search, College } from "./listStyles.jsx";
-import { Button, Input } from "reactstrap";
+import { Button, Form, FormGroup, Input } from 'reactstrap';
 import { Link } from "react-router-dom";
 import firebase from "firebase";
 import { auth } from "../../firebase";
@@ -9,7 +9,24 @@ export default function ListCard({ collegeId, ...props }) {
   const db = firebase.firestore();
   const [inputValue, setInputValue] = useState();
   const [colleges, setColleges] = useState([]);
-  const [selectedCollege, setSelectedCollege] = useState([]);
+  // attribuites assigned null value such that input text values do not change from undefined to a defined 
+  // value, causing errors
+  const [selectedCollege, setSelectedCollege] = useState({
+      DOCUMENT_ID: "", 
+      INSTNM: "", 
+      CITY: "",
+      ADM_RATE_ALL: "",
+      STABBR: "",
+      AVG_COST: "",
+      SAT_AVG_ALL: "",
+      INSTURL: "",
+      ACT_AVG: "",
+      ADD_NOTES: "",
+  });
+
+  const handleChange = (value, option) => {
+    setSelectedCollege({...selectedCollege, [option]: value})
+  }
   
   const handleFilter = () => {
     if (inputValue) {
@@ -68,60 +85,62 @@ export default function ListCard({ collegeId, ...props }) {
 
   return (
     <Card>
-      <Element>
-        <Heading>University</Heading>
-        <Search>
-          {/* if the user has already selected a university or wants to edit an info of a uni from dashboard, prefill name here */}
-          <Input onChange={(e) => setInputValue(e.target.value)} value={selectedCollege?.["INSTNM"]}/>
-          <Button style={{ marginLeft: '0.5em' }} onClick={handleFilter}> Submit </Button>
-        </Search>
-        {colleges?.map((college, key) => {
-            return ( 
-              <College key={key} onClick={() => setSelectedCollege(college)}> 
-                {college['INSTNM']} 
-              </College>
-            )
-        })}
-      </Element>
-      <Element>
-        <Heading>Location</Heading>
-        <Input value={selectedCollege?.["CITY"]} onChange={(e) => {setSelectedCollege({...selectedCollege, AVG_COST: e.target.value})}}/>
-      </Element>
-      <Element>
-        <Heading>AVG Cost</Heading>
-        {/* if university is selected, show finance calculator for applicable institute */}
-        { selectedCollege.length > 0 && <div>
-          To find out the estimated costs for you, visit the institute's official website: <a>{selectedCollege?.["NPCURL"]}</a>
-        </div>}
-        <Input value={selectedCollege?.["AVG_COST"]} onChange={(e) => {setSelectedCollege({...selectedCollege, AVG_COST: e.target.value})}}/>
-      </Element>
-      <Element>
-        <Heading>AVG SAT</Heading>
-        <Input value={selectedCollege?.["SAT_AVG_ALL"]} onChange={(e) => {setSelectedCollege({SAT_AVG_ALL: e.target.value})}}/>
-      </Element>
-      <Element>
-        <Heading>AVG ACT</Heading>
-        <Input value={selectedCollege?.["ACT_AVG"]} onChange={(e) => {setSelectedCollege({ACT_AVG: e.target.value})}}/>
-      </Element>
-      <Element>
-        <Heading>Acceptance %</Heading>
-        <Input value={selectedCollege?.["ACTENMID"]} onChange={(e) => {setSelectedCollege({ACTENMID: e.target.value})}}/>
-      </Element>
-      <Element>
-        <Heading> Additional Notes </Heading>
-        <Input type="textarea" value={selectedCollege?.["ADD_NOTES"]} onChange={(e) => {setSelectedCollege({ADD_NOTES: e.target.value})}}/>
-      </Element>
-        <Link to="/">
-          <Button
-            size="lg"
-            block
-            style={{ margin: "10px 0px" }}
-            color="danger"
-            onClick={handleSubmit}
-          >
-            Submit
-          </Button>
-        </Link>
+      <Form onSubmit={handleSubmit}>
+        <FormGroup>
+          <Heading>University</Heading>
+          <Search>
+            {/* if the user has already selected a university or wants to edit an info of a uni from dashboard, prefill name here */}
+            <Input onChange={(e) => setInputValue(e.target.value)} value={selectedCollege?.["INSTNM"]}/>
+            <Button style={{ marginLeft: '0.5em' }} onClick={handleFilter}> Submit </Button>
+          </Search>
+          {colleges?.map((college, key) => {
+              return ( 
+                <College key={key} onClick={() => setSelectedCollege(college)}> 
+                  {college['INSTNM']} 
+                </College>
+              )
+          })}
+        </FormGroup>
+        <FormGroup>
+          <Heading>Location</Heading>
+          <Input value={selectedCollege?.["CITY"]} onChange={(e) => handleChange(e.target.value, 'CITY')}/>
+        </FormGroup>
+        <FormGroup>
+          <Heading>AVG Cost</Heading>
+          {/* if university is selected, show finance calculator for applicable institute */}
+          { selectedCollege.length > 0 && <div>
+            To find out the estimated costs for you, visit the institute's official website: <a>{selectedCollege?.["NPCURL"]}</a>
+          </div>}
+          <Input value={selectedCollege?.["AVG_COST"]} onChange={(e) => handleChange(e.target.value, 'AVG_COST')}/>
+        </FormGroup>
+        <FormGroup>
+          <Heading>AVG SAT</Heading>
+          <Input value={selectedCollege?.["SAT_AVG_ALL"]} onChange={(e) => handleChange(e.target.value, 'SAT_AVG_ALL')}/>
+        </FormGroup>
+        <FormGroup>
+          <Heading>AVG ACT</Heading>
+          <Input value={selectedCollege?.["ACT_AVG"]} onChange={(e) => handleChange(e.target.value, 'ACT_AVG')}/>
+        </FormGroup>
+        <FormGroup>
+          <Heading>Acceptance %</Heading>
+          <Input value={selectedCollege?.["ACTENMID"]} onChange={(e) => handleChange(e.target.value, 'ACTENMID')}/>
+        </FormGroup>
+        <FormGroup>
+          <Heading> Additional Notes </Heading>
+          <Input type="textarea" value={selectedCollege?.["ADD_NOTES"]} onChange={(e) => handleChange(e.target.value, 'ADD_NOTES')}/>
+        </FormGroup>
+      </Form>
+      <Link to="/">
+        <Button
+          size="lg"
+          block
+          style={{ margin: "10px 0px" }}
+          color="danger"
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
+      </Link>
     </Card>
   );
 }

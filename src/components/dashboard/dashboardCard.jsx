@@ -8,10 +8,10 @@ import { HiLocationMarker } from 'react-icons/hi'
 import { SiGooglescholar } from 'react-icons/si'
 import { MdMonetizationOn } from 'react-icons/md'
 import { FaEdit } from 'react-icons/fa'
-
+import { CgNotes } from 'react-icons/cg'
 
 export default function DashboardCard({ college, ...props }) {
-  const { DOCUMENT_ID, INSTNM, CITY, ADM_RATE_ALL, STABBR, AVG_COST, SAT_AVG_ALL, INSTURL, ACT_AVG } = college;
+  const { DOCUMENT_ID, INSTNM, CITY, ADM_RATE_ALL, STABBR, AVG_COST, SAT_AVG_ALL, INSTURL, ACT_AVG, ADD_NOTES } = college;
 
   const iconStyle = { fontSize: '24px', margin: '0px 10px' }
   return (
@@ -29,6 +29,9 @@ export default function DashboardCard({ college, ...props }) {
           <Content color={"#46b3e6"}> <MdMonetizationOn style={iconStyle}/> Average Yearly Tuition: ${AVG_COST}</Content>
           <Content color={"#30c735"}> <MdMonetizationOn style={iconStyle}/> Average ACT Score: {ACT_AVG}</Content>
           <Content color={"#30c735"}> <MdMonetizationOn style={iconStyle}/> Average SAT Score: {SAT_AVG_ALL}</Content>
+        </Information>
+        <Information>
+          <Content><CgNotes style={iconStyle}/> {ADD_NOTES ?? `none`} </Content>
         </Information>
   </Card>
   );

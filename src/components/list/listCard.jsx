@@ -11,18 +11,7 @@ export default function ListCard({ collegeId, ...props }) {
   const [colleges, setColleges] = useState([]);
   // attribuites assigned null value such that input text values do not change from undefined to a defined 
   // value, causing errors
-  const [selectedCollege, setSelectedCollege] = useState({
-      DOCUMENT_ID: "", 
-      INSTNM: "", 
-      CITY: "",
-      ADM_RATE_ALL: "",
-      STABBR: "",
-      AVG_COST: "",
-      SAT_AVG_ALL: "",
-      INSTURL: "",
-      ACT_AVG: "",
-      ADD_NOTES: "",
-  });
+  const [selectedCollege, setSelectedCollege] = useState({});
 
   const handleChange = (value, option) => {
     setSelectedCollege({...selectedCollege, [option]: value})
@@ -130,6 +119,7 @@ export default function ListCard({ collegeId, ...props }) {
           <Input type="textarea" value={selectedCollege?.["ADD_NOTES"]} onChange={(e) => handleChange(e.target.value, 'ADD_NOTES')}/>
         </FormGroup>
       </Form>
+      {selectedCollege?.["INSTNM"] !== undefined ? 
       <Link to="/">
         <Button
           size="lg"
@@ -140,7 +130,18 @@ export default function ListCard({ collegeId, ...props }) {
         >
           Submit
         </Button>
-      </Link>
+      </Link> : 
+      <Link to="/">
+      <Button
+        size="lg"
+        block
+        style={{ margin: "10px 0px" }}
+        color="danger"
+        onClick={handleSubmit}
+      >
+        Submit
+      </Button>
+    </Link> }
     </Card>
   );
 }

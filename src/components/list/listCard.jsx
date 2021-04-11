@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Element, Heading, Search, College } from "./listStyles.jsx";
+import { Card, Heading, Search, College } from "./listStyles.jsx";
 import { Button, Form, FormGroup, Input } from 'reactstrap';
 import { Link } from "react-router-dom";
 import firebase from "firebase";
@@ -71,7 +71,7 @@ export default function ListCard({ collegeId, ...props }) {
     }
   }, [])
 
-
+console.log(selectedCollege?.["INSTNM"])
   return (
     <Card>
       <Form onSubmit={handleSubmit}>
@@ -137,7 +137,7 @@ export default function ListCard({ collegeId, ...props }) {
         block
         style={{ margin: "10px 0px" }}
         color="danger"
-        onClick={handleSubmit}
+        disabled
       >
         Submit
       </Button>

@@ -9,7 +9,7 @@ export default function Navbar(props) {
   const [error, setError] = useState("");
   const { logout, currentUser } = useAuth();
   const history = useHistory();
-
+  
   const { displayName, email } = currentUser;
 
   const handleLogOut = async () => {
@@ -34,6 +34,7 @@ export default function Navbar(props) {
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={handleLogOut}>Sign Out</Dropdown.Item>
+            {/* display name of user if found, else show email */}
             <Dropdown.Header>{displayName ?? email}</Dropdown.Header>
           </Dropdown.Menu>
         </Dropdown>

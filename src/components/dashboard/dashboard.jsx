@@ -1,32 +1,49 @@
-import React from "react";
-import { Container, Heading, AddCard, AddSubCard } from "./dasboardStyle.jsx";
+import React, { useState, useEffect } from "react";
+import { Container, AddCard, AddSubCard } from "./dasboardStyle.jsx";
 import { RiAddCircleFill } from "react-icons/ri";
 import DashboardCard from "./dashboardCard.jsx";
 import { Link } from "react-router-dom";
 import Navbar from "../Navbar/Navbar"
+import firebase from "firebase";
+import { auth } from "../../firebase";
 
 export const Dashboard = ({ ...props }) => {
-  const university = "University of Waterloo";
-  const location = "somewhere in waterloo";
-  const cost = "13.5k to 18.5k";
-  const score = 40;
-  const information =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tincidunt dictum quam, sed pretium odio commodo et. Sed placerat id odio in congue. Quisque lacinia eget ex et fringilla. Suspendisse sit amet luctus diam. Integer congue";
+  const [colleges, setColleges] = useState([]);
+  const db = firebase.firestore();
 
-  const value = { university, location, cost, score, information };
+  // when component mounts, this fetches user's list based on their unique firebase auth id
+  useEffect(() => {
+    db.collection("users").doc(auth.currentUser.uid).collection("colleges")
+    .get()
+    .then((response) => {
+      let temp = []
+      // each document manually coded a unique id assigned in firebase 
+      response.forEach((doc) => {
+        temp = [...temp, {...doc.data(), DOCUMENT_ID: doc.id}]
+      });
+      // set the list of colleges to view 
+      setColleges(temp)
+      console.log(temp)
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }, [])
+
+  // view college list
+  const collegeCards = colleges.map((val, index) => (
+    <DashboardCard college={val} key={index} />
+  ));
+
   return (
     <>
     <Navbar/>
     <Container>
-      <DashboardCard value={value} />
-      <DashboardCard value={value} />
-      <DashboardCard value={value} />
-      <Link to="/list/1">
+      {collegeCards}
+      <Link to="/list">
         <AddCard>
           <AddSubCard>
-            <div>
               <RiAddCircleFill style={{ fontSize: "4em", color: "#F06B6B" }} />
-            </div>
           </AddSubCard>
         </AddCard>
       </Link>

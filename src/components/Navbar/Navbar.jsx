@@ -33,9 +33,9 @@ export default function Navbar(props) {
             <FaUserCircle style={{ fontSize: "2em" }} />
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={handleLogOut}>Sign Out</Dropdown.Item>
             {/* display name of user if found, else show email */}
             <Dropdown.Header>{displayName ?? email}</Dropdown.Header>
+            <Dropdown.Item onClick={handleLogOut}>Sign Out</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </div>

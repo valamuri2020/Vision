@@ -122,7 +122,7 @@ console.log(selectedCollege?.["INSTNM"])
         </FormGroup>
         <FormGroup>
           <Heading>Acceptance %</Heading>
-          <Input value={selectedCollege?.["ACTENMID"]} onChange={(e) => handleChange(e.target.value, 'ACTENMID')}/>
+          <Input value={selectedCollege?.["ADM_RATE_ALL"]} onChange={(e) => handleChange(e.target.value, 'ADM_RATE_ALL')}/>
         </FormGroup>
         <FormGroup>
           <Heading> Additional Notes </Heading>

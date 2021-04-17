@@ -28,11 +28,8 @@ export default function Navbar(props) {
       </Title>
       {error && <Alert variant="warning">{error}</Alert>}
       <div>
-        {/* <Button variant="link" style={{color: 'white'}} onClick={handleLogOut}>
-          Sign Out
-        </Button> */}
         <Dropdown>
-          <Dropdown.Toggle variant="danger">
+          <Dropdown.Toggle variant="danger" style={{backgroundColor:'#f06b6b', border: 'none'}}>
             <FaUserCircle style={{ fontSize: "2em" }} />
           </Dropdown.Toggle>
           <Dropdown.Menu>

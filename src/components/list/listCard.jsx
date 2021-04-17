@@ -19,8 +19,18 @@ export default function ListCard({ collegeId, ...props }) {
   
   const handleFilter = () => {
     if (inputValue) {
+      // changes the input value by user such that search is not case sensitive
+      // input: university of waterloo, input to compare: University of Waterloo
+      // data in the db cannot be changed to case-insensitive
+
+      let inputValueToCompare = inputValue.split(" ").map(word => {
+        // if the value contains word 'of', keep it unchanged 
+        if (word === 'of') return 'of'
+        return word[0].toUpperCase() + word.substring(1)
+      }).join(" ")
+
       db.collection("colleges")
-      .where('INSTNM', '==', inputValue)
+      .where('INSTNM', '==', inputValueToCompare)
       .get()
       .then((response) => {
         let temp = [];
@@ -96,7 +106,7 @@ console.log(selectedCollege?.["INSTNM"])
         </FormGroup>
         <FormGroup>
           <Heading>AVG Cost</Heading>
-          {/* if university is selected, show finance calculator for applicable institute */}
+          {/* if university is selected, show finance calculator for applicable institute and let users calculate it for themselves*/}
           { selectedCollege.length > 0 && <div>
             To find out the estimated costs for you, visit the institute's official website: <a>{selectedCollege?.["NPCURL"]}</a>
           </div>}
@@ -119,6 +129,7 @@ console.log(selectedCollege?.["INSTNM"])
           <Input type="textarea" value={selectedCollege?.["ADD_NOTES"]} onChange={(e) => handleChange(e.target.value, 'ADD_NOTES')}/>
         </FormGroup>
       </Form>
+      {/* if there is no selected college, do not let users submit blank information */}
       {selectedCollege?.["INSTNM"] !== undefined ? 
       <Link to="/">
         <Button

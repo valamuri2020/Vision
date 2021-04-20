@@ -13,6 +13,18 @@ export const Container = styled.div`
 export const Element = styled.div`
   margin: 0.5em;
 `;
+
+export const College = styled.a`
+  display:flex;
+  padding:1em;  
+`
+export const Search = styled.div`
+  display:flex;
+  justify-content:space-between;
+  margin-left: 0.5em;
+`;
+
+
 export const Heading = styled.div`
   font-size: 20px;
   font-weight: 700;

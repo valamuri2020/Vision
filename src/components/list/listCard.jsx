@@ -1,43 +1,65 @@
-import React, { useEffect, useState } from "react";
-import { Card, Element, Heading } from "./listStyles.jsx";
-import { FormGroup, Button, Input } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { Card, Heading, Search, College } from "./listStyles.jsx";
+import { Button, Form, FormGroup, Input } from 'reactstrap';
 import { Link } from "react-router-dom";
 import firebase from "firebase";
 import { auth } from "../../firebase";
 
-export default function ListCard() {
+export default function ListCard({ collegeId, ...props }) {
   const db = firebase.firestore();
-  const [colleges, setColleges] = useState();
+  const [inputValue, setInputValue] = useState();
+  const [colleges, setColleges] = useState([]);
+  // attribuites assigned null value such that input text values do not change from undefined to a defined 
+  // value, causing errors
+  const [selectedCollege, setSelectedCollege] = useState({});
 
-  useEffect(() => {
-    const temp = [];
-    db.collection("colleges")
+  const handleChange = (value, option) => {
+    setSelectedCollege({...selectedCollege, [option]: value})
+  }
+  
+  const handleFilter = () => {
+    if (inputValue) {
+      // changes the input value by user such that search is not case sensitive
+      // input: university of waterloo, input to compare: University of Waterloo
+      // data in the db cannot be changed to case-insensitive
+
+      let inputValueToCompare = inputValue.split(" ").map(word => {
+        // if the value contains word 'of', keep it unchanged 
+        if (word === 'of') return 'of'
+        return word[0].toUpperCase() + word.substring(1)
+      }).join(" ")
+
+      db.collection("colleges")
+      .where('INSTNM', '==', inputValueToCompare)
       .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          console.log(`${doc.id} => ${doc.data()}`);
-          temp.push(doc.data());
+      .then((response) => {
+        let temp = [];
+        response.forEach((doc) => {
+          temp = [...temp, {...doc.data()}]
         });
-        setColleges(temp);
-        // TODO remove console logs if not needed
-        console.log("temp", temp);
-        console.log("state", colleges);
-      });
-  }, []);
+        setColleges(temp)
+        console.log(colleges)
+      })
+    }
+  };
 
   const handleSubmit = () => {
-    console.log("clicked");
-    db.collection("users").doc(auth.currentUser.uid).collection("colleges")
-      // TODO need to make all these fields values form the inputs, not hardcoded
-      // TODO add uid logic so that this specific user's list is updated and not all users
-      .add({
-        name: "ui test",
-        location: "some random place",
-        avg_cost: 1738,
-        avg_act: 22,
-        avg_sat: 1300,
-        acceptance_rate: 0.23,
+    
+    const Ref = db.collection("users").doc(auth.currentUser.uid).collection("colleges")
+
+    if (collegeId) {
+      // find the college user wants to edit by id and update info based on user input in this form
+      Ref.doc(`${collegeId}`)
+      .set(selectedCollege)
+      .then(() => {
+        console.log('edited college document successfully')
       })
+      .catch(err => console.log(err))
+      return
+    }
+
+    // creates or finds a doc with the user id logged in, saves a college doc within the user doc
+    Ref.add(selectedCollege)
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
       })
@@ -45,39 +67,70 @@ export default function ListCard() {
         console.error("Error adding document: ", error);
       });
   };
+
+  useEffect(() => {
+    // if a collegeId is passed as a parameter, prefill the text boxes with college info
+    // find the college selected by finding the unique document id for the college in the user's list
+    if (collegeId) {
+      db.collection("users").doc(auth.currentUser.uid).collection("colleges").doc(`${collegeId}`)
+      .get()
+      .then((response) => {
+        console.log(response.data())
+        setSelectedCollege(response.data())
+      })
+    }
+  }, [])
+
+console.log(selectedCollege?.["INSTNM"])
   return (
     <Card>
-      <Element>
-        <Heading>University</Heading>
+      <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Input type="select">
-            {colleges &&
-              colleges.map((college) => {
-                return <option>{college.name}</option>;
-              })}
-          </Input>
+          <Heading>University</Heading>
+          <Search>
+            {/* if the user has already selected a university or wants to edit an info of a uni from dashboard, prefill name here */}
+            <Input onChange={(e) => setInputValue(e.target.value)} value={selectedCollege?.["INSTNM"]}/>
+            <Button style={{ marginLeft: '0.5em' }} onClick={handleFilter}> Submit </Button>
+          </Search>
+          {colleges?.map((college, key) => {
+              return ( 
+                <College key={key} onClick={() => setSelectedCollege(college)}> 
+                  {college['INSTNM']} 
+                </College>
+              )
+          })}
         </FormGroup>
-      </Element>
-      <Element>
-        <Heading>Location</Heading>
-        <Input />
-      </Element>
-      <Element>
-        <Heading>AVG Cost</Heading>
-        <Input />
-      </Element>
-      <Element>
-        <Heading>AVG SAT</Heading>
-        <Input />
-      </Element>
-      <Element>
-        <Heading>AVG ACT</Heading>
-        <Input />
-      </Element>
-      <Element>
-        <Heading>Acceptance %</Heading>
-        <Input />
-      </Element>
+        <FormGroup>
+          <Heading>Location</Heading>
+          <Input value={selectedCollege?.["CITY"]} onChange={(e) => handleChange(e.target.value, 'CITY')}/>
+        </FormGroup>
+        <FormGroup>
+          <Heading>AVG Cost</Heading>
+          {/* if university is selected, show finance calculator for applicable institute and let users calculate it for themselves*/}
+          { selectedCollege.length > 0 && <div>
+            To find out the estimated costs for you, visit the institute's official website: <a>{selectedCollege?.["NPCURL"]}</a>
+          </div>}
+          <Input value={selectedCollege?.["AVG_COST"]} onChange={(e) => handleChange(e.target.value, 'AVG_COST')}/>
+        </FormGroup>
+        <FormGroup>
+          <Heading>AVG SAT</Heading>
+          <Input value={selectedCollege?.["SAT_AVG_ALL"]} onChange={(e) => handleChange(e.target.value, 'SAT_AVG_ALL')}/>
+        </FormGroup>
+        <FormGroup>
+          <Heading>AVG ACT</Heading>
+          <Input value={selectedCollege?.["ACT_AVG"]} onChange={(e) => handleChange(e.target.value, 'ACT_AVG')}/>
+        </FormGroup>
+        <FormGroup>
+          <Heading>Acceptance %</Heading>
+          <Input value={selectedCollege?.["ADM_RATE_ALL"]} onChange={(e) => handleChange(e.target.value, 'ADM_RATE_ALL')}/>
+        </FormGroup>
+        <FormGroup>
+          <Heading> Additional Notes </Heading>
+          <Input type="textarea" value={selectedCollege?.["ADD_NOTES"]} onChange={(e) => handleChange(e.target.value, 'ADD_NOTES')}/>
+        </FormGroup>
+      </Form>
+      {/* if there is no selected college, do not let users submit blank information */}
+      {selectedCollege?.["INSTNM"] !== undefined ? 
       <Link to="/">
         <Button
           size="lg"
@@ -86,10 +139,20 @@ export default function ListCard() {
           color="danger"
           onClick={handleSubmit}
         >
-          {/* color='#F06B6B' for button does not work as expected */}
           Submit
         </Button>
-      </Link>
+      </Link> : 
+      <Link to="/">
+      <Button
+        size="lg"
+        block
+        style={{ margin: "10px 0px" }}
+        color="danger"
+        disabled
+      >
+        Submit
+      </Button>
+    </Link> }
     </Card>
   );
 }

@@ -16,7 +16,7 @@ function App() {
             <PrivateRoute path="/" exact component={Dashboard}></PrivateRoute>
             <Route path="/register" component={Register}></Route>
             <Route path="/signin" component={SignIn}></Route>
-            <Route path="/list/:id" component={List}></Route>
+            <Route path="/list/:id?" component={List}></Route>
             <Route path="/forgot-password" component={ForgotPassword}></Route>
           </Switch>
         </AuthProvider>

@@ -10,4 +10,11 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index:2;
 `;
+
+export const Title = styled.h3`
+  a {
+    color:white;
+  }
+`

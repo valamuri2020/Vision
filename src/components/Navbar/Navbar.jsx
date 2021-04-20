@@ -1,14 +1,16 @@
-import { Container } from "./navbarStyle.jsx";
+import { Container, Title } from "./navbarStyle.jsx";
 import { FaUserCircle } from "react-icons/fa";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext.js";
-import { Alert, Button } from "react-bootstrap";
+import { Alert, Dropdown } from "react-bootstrap";
 
 export default function Navbar(props) {
   const [error, setError] = useState("");
-  const { logout } = useAuth();
+  const { logout, currentUser } = useAuth();
   const history = useHistory();
+  
+  const { displayName, email } = currentUser;
 
   const handleLogOut = async () => {
     setError("");
@@ -21,13 +23,21 @@ export default function Navbar(props) {
   };
   return (
     <Container>
-      <h3>Vision</h3>
+      <Title>
+        <a href='/'>Vision</a>
+      </Title>
       {error && <Alert variant="warning">{error}</Alert>}
       <div>
-        <Button variant="link" style={{color: 'white'}} onClick={handleLogOut}>
-          Sign Out
-        </Button>
-        <FaUserCircle style={{ fontSize: "2em" }} />
+        <Dropdown>
+          <Dropdown.Toggle variant="danger" style={{backgroundColor:'#f06b6b', border: 'none'}}>
+            <FaUserCircle style={{ fontSize: "2em" }} />
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {/* display name of user if found, else show email */}
+            <Dropdown.Header>{displayName ?? email}</Dropdown.Header>
+            <Dropdown.Item onClick={handleLogOut}>Sign Out</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
     </Container>
   );

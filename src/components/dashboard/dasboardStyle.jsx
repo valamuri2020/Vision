@@ -20,11 +20,12 @@ export const Card = styled.div`
   border: 1px solid black;
   border-radius: 2rem;
   display: flex;
-  min-height: 15rem;
+  min-height: 8rem;
   padding: 1em;
   background: white;
   margin: 1em;
   max-width: 100rem;
+  justify-content:space-around;
   @media only screen and (max-width: ${mobileSize}) {
     flex-direction: column;
     padding: 1em;
@@ -53,17 +54,17 @@ export const Content = styled.div`
   color: ${(props) => props.color};
   font-weight: 700;
   margin: 0.2em 0;
+  display:flex;
+  align-items:center;
 `;
 export const SubCard = styled.div`
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
 `;
 
 export const AddSubCard = styled.div`
   display: flex;
   justify-content: center;
-  margin-left: 20px;
 `;
 
 export const Text = styled.div`
@@ -85,6 +86,11 @@ export const SubData = styled.div`
 export const Information = styled.div`
   display: flex;
   flex-direction: column;
+  margin-right: 2rem;
+  width:33%;
+  @media only screen and (max-width: ${mobileSize}) {
+    width:100%;
+  }
 `;
 export const Heading = styled.div`
   display: flex;

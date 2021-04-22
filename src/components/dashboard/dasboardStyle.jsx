@@ -18,12 +18,12 @@ export const Container = styled.div`
 
 export const Card = styled.div`
   border: 1px solid black;
-  border-radius: 2rem;
+  border-radius: 1rem;
   display: flex;
   min-height: 8rem;
   padding: 1em;
   background: white;
-  margin: 1em;
+  margin: 1em 0em;
   max-width: 100rem;
   justify-content:space-around;
   @media only screen and (max-width: ${mobileSize}) {

@@ -15,7 +15,7 @@ import { BsBookHalf, BsTrashFill } from 'react-icons/bs'
 export default function DashboardCard({ college, ...props }) {
   const { DOCUMENT_ID, INSTNM, CITY, ADM_RATE_ALL, STABBR, AVG_COST, SAT_AVG_ALL, INSTURL, ACT_AVG, ADD_NOTES } = college;
 
-  const iconStyle = { fontSize: '24px', margin: '0px 10px' }
+  const iconStyle = { fontSize: '24px', marginRight: '10px' }
   const db = firebase.firestore();
 
   const deleteCollege = () => {
@@ -44,7 +44,7 @@ export default function DashboardCard({ college, ...props }) {
           <Content color={"#30c735"}> <BsBookHalf style={iconStyle}/> Average SAT Score: {SAT_AVG_ALL}</Content>
         </Information>
         <Information>
-          <Content>{ADD_NOTES ?? `none`}</Content>
+          <Content>{ADD_NOTES ?? ``}</Content>
         </Information>
   </Card>
   );

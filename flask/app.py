@@ -54,12 +54,11 @@ def fetchRecommendations(user_input):
     for i in ids:
         result.append(df_further_reduced.loc[i])
 
-    # print(df_user_input.head(2))
-
-    # result = kmeans_model.predict(df_user_input)
-
-    res = [i.to_dict() for i in result]
-
+    res = []
+    # convert each recommended college df into a dictionary, append it into an array
+    for i in result:
+        res.append(i.to_dict(orient='records')[0])
+    # convert list of dict to json format
     return jsonify(res)
 
 @app.route("/recommend", methods=['POST'])

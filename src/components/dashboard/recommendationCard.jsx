@@ -7,20 +7,19 @@ import {
   AddIcon,
 } from "./recommendationCardStyles";
 
-export const RecommendationCard = (props) => {
-  const { university } = props;
+export const RecommendationCard = ({college}) => {
   const addRecommendation = () => {
     console.log("added");
   }
   return (
     <CardContainer>
-      <CardHeader>{university.INSTNM}</CardHeader>
+      <CardHeader>{college?.INSTNM}</CardHeader>
       <DataLabel>
-        {university.CITY}, {university.STABBR}
+        {college?.CITY}, {college?.STABBR}
       </DataLabel>
       <br />
       <DataLabel>Acceptance: </DataLabel>
-      <Data>{university.ADM_RATE_ALL * 100 + "%"}</Data>
+      <Data>{college?.ADM_RATE_ALL * 100 + "%"}</Data>
       <div style={{ textAlign: "right" }} onClick={addRecommendation}>
         <AddIcon />
       </div>

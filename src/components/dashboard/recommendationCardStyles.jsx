@@ -15,6 +15,7 @@ export const CardContainer = styled(Container)`
     0px 3px 3px rgba(0, 0, 0, 0.2);
   border: 0.5px solid ${darkpink};
   border-radius: 6px;
+  margin: 8px 0px;
 `;
 export const CardHeader = styled.h5`
   color: ${darkpink};

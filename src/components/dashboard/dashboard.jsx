@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, AddCard, AddSubCard } from "./dasboardStyle.jsx";
+import { Container, AddCard, AddSubCard, SubContainer } from "./dasboardStyle.jsx";
 import { RiAddCircleFill } from "react-icons/ri";
 import DashboardCard from "./dashboardCard.jsx";
 import { RecommendationCard } from "./recommendationCard.jsx";
@@ -33,7 +33,6 @@ export const Dashboard = ({ ...props }) => {
   }
 
   const getUsersRecommendations = (colleges) => {
-    console.log(colleges)
       fetch(`/recommend`, {
           method: 'POST',
           headers: {
@@ -60,21 +59,20 @@ export const Dashboard = ({ ...props }) => {
   ));
 
   const recommendationCard = recommendations.map((val, index) => (
-    <RecommendationCard college={val} key={index} />
+    <DashboardCard college={val} key={index} />
   ));
 
-  // recommendations.map((val, index) => (
-  //   console.log(val)
-  // ));
-
-  console.log(recommendations)
   return (
     <>
     <Navbar/>
     <Container>
       <h3>College Recommendations</h3>
-      {recommendationCard}
-      {collegeCards}
+      <SubContainer>
+          {collegeCards}
+      </SubContainer>
+      <SubContainer>
+          {recommendationCard}
+      </SubContainer>
       <Link to="/list">
         <AddCard>
           <AddSubCard>

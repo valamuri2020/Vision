@@ -16,18 +16,26 @@ export const Container = styled.div`
   }
 `;
 
+export const SubContainer = styled.div`
+  flex-direction: row;
+  display:flex;
+  justify-content:space-around;
+  @media only screen and (max-width: ${mobileSize}) {
+    flex-direction:column;
+  }
+`
 export const Card = styled.div`
   border: 1px solid black;
-  border-radius: 1rem;
+  border-radius: 0.6rem;
   display: flex;
   min-height: 8rem;
   padding: 1em;
   background: white;
   margin: 1em 0em;
-  max-width: 100rem;
-  justify-content:space-around;
+  flex-direction: column;
+  max-width: 23rem;
+  justify-content:space-between;
   @media only screen and (max-width: ${mobileSize}) {
-    flex-direction: column;
     padding: 1em;
     justify-content: center;
   }
@@ -75,26 +83,43 @@ export const Text = styled.div`
   text-overflow: ellipsis;
 `;
 
-export const SubData = styled.div`
+export const Header = styled.div`
   display: flex;
-  flow-direction: column;
-  > .p {
-    color: gray;
+  flex-direction: column;
+  >div:nth-child(1) {
+    font-size:1.25rem;
+    font-weight:600;
   }
 `;
+
+export const Button = styled.div`
+`
+
+export const SubData = styled.div`
+  display:flex;
+  margin: 0.5rem 0rem;
+  justify-content:space-between;
+  flex-wrap:wrap;
+`
+
+export const Stats = styled.div`
+  min-width:2rem;
+  margin-right: 0.7rem;
+  >div:nth-child(1) {
+    font-size:0.8rem;
+  }
+  >div:nth-child(2) {
+    font-size:1.2rem;
+  }
+`
 
 export const Information = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 2rem;
-  width:33%;
-  @media only screen and (max-width: ${mobileSize}) {
-    width:100%;
-  }
 `;
 export const Heading = styled.div`
   display: flex;
-  align-items: center;
   font-size: 1.5rem;
   margin-left: 20px;
   font-weight: 700;

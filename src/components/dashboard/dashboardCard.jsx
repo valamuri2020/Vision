@@ -80,7 +80,7 @@ export default function DashboardCard({
               onClick={() => addCollegeToList(college)}
             />
           )}
-          <a to={INSTURL} target="_blank">
+          <a href={INSTURL} target="_blank">
             {" "}
             <FaGlobeAmericas style={iconStyle} />
           </a>

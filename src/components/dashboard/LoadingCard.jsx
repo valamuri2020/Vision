@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "./dashboardStyle.jsx";
+import { Card, Loading } from "./dashboardStyle.jsx";
 import { Spinner } from "reactstrap";
 
 export default function LoadingCard({ recommendation }) {
@@ -11,9 +11,9 @@ export default function LoadingCard({ recommendation }) {
       color={recommendation && palepink}
       textColor={recommendation && darkpink}
     >
-      <div>
-        <Spinner style={{alignSelf:'center'}} color="danger" />
-      </div>
+      <Loading>
+        <Spinner color="danger" />
+      </Loading>
     </Card>
   );
 }

@@ -85,6 +85,11 @@ export const Card = styled.div`
   }
 `;
 
+export const Loading = styled.div`
+  display:flex;
+  justify-content:center;
+`
+
 export const AddCard = styled.div`
   border: 2px dashed grey;
   border-radius: 1rem;

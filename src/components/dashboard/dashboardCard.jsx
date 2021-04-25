@@ -1,10 +1,15 @@
 import React from "react";
-import { Card, Header, SubData, Stats } from "./dashboardStyle.jsx";
+import {
+  Card,
+  Header,
+  SubData,
+  Stats,
+  AddIcon,
+  WebsiteIcon,
+  EditIcon,
+  DeleteIcon,
+} from "./dashboardStyle.jsx";
 import { HiLocationMarker } from "react-icons/hi";
-import { AiFillPlusCircle } from "react-icons/ai";
-import { FaGlobeAmericas } from "react-icons/fa";
-import { FiEdit } from "react-icons/fi";
-import { AiOutlineDelete } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 
 export default function DashboardCard({
@@ -55,7 +60,11 @@ export default function DashboardCard({
           <div>
             {INSTNM}{" "}
             <a href={INSTURL} target="_blank">
-              <FaGlobeAmericas style={iconStyle} />
+              {recommendation ? (
+                <WebsiteIcon color={darkpink} />
+              ) : (
+                <WebsiteIcon />
+              )}
             </a>
           </div>
           <div>
@@ -91,17 +100,12 @@ export default function DashboardCard({
         <SubData>
           {!recommendation && (
             <a href={`/list/${UNITID}`}>
-              <FiEdit style={iconStyle} />
+              <EditIcon />
             </a>
           )}
-          {recommendation && (
-            <AiFillPlusCircle style={iconStyle} onClick={navigatoToList} />
-          )}
+          {recommendation && <AddIcon onClick={navigatoToList} />}
           {!recommendation && (
-            <AiOutlineDelete
-              style={{ ...iconStyle, color: "red" }}
-              onClick={() => deleteCollege(college)}
-            />
+            <DeleteIcon onClick={() => deleteCollege(college)} />
           )}
         </SubData>
       </>

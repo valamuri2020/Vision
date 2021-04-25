@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+## Inspiration
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Planning your college list is one of the most exciting and important parts of your life as a high school student. We saw that there weren't any easy, intuitive tools available to craft our lists. Many of our peers used spreadsheets, paper notes and text documents. It would have also been very beneficial for us to know about other colleges similar to those in our lists.
 
-## Available Scripts
+## What it does
 
-In the project directory, you can run:
+Enter Vision. Sign up with your email to easily find and add the colleges you want in two clicks. Vision will autocomplete all relevant fields such as average SAT/ACT, acceptance rate, provide links to the institution's website and their financial aid page. A key aspect of this project is the content-based recommendation system with Machine Learning. This algorithm takes the colleges in the user's list as inputs to find and then recommend the most similar colleges.
 
-### `npm start`
+#### Features:
+ * Sign in, register and forgot password functionality using Firebase
+ * Firestore is used to create user lists, edit their notes, delete colleges from lists and store all college data 
+ * Machine Learning algorithm using Sci-kit Learn combined with a RESTful API in Flask to recommend colleges 
+ * An intuitive and engaging user interface, search functionality, and routing with React, Firebase and Bootstrap
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How we built it 
+We used a variety of software development practices over the duration of this project. Firstly, using Git for version control proved incredibly useful. It allowed us to delegated tasks and work on separate portions to guarantee smooth collaboration.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The app boasts authentication with email and passoword powered by Firebase. Firebase Cloud Firestore also served as our database which allowed us to connect the current user with their data. 
 
-### `npm test`
+After finding college data from the U.S. Department of Education, we converted that into JSON and mass uploaded it to the database using a Node.js script and Firebase Admin permissions.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+When a user updates their list through the responsive React frontend, those changes are immediately reflected in the database. 
 
-### `npm run build`
+<b>Talk about search bar functionality.</b>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+User data is sent to the ML algorithm when the dashboard has loaded through a REST API built using Flask. It responds with the recommendations which are then displayed in pink underneath the user's list. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Challenges we overcame
+<b>search bar</b>
+<b>connecting ml to ui</b>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+We are very glad to have each other to help overcome challenges, debug and we certainly learnt a lot and had fun with it throughout!
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Accomplishments we are proud of 
+We are very proud of applying our machine learning knowledge and coming up with the recommendation system on our own! We are also very proud of designing a clean, interactive UI that allows for an intuitive user flow from logging in to adding a new college!
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## What we learned
+We learned new frameworks such as Firebase, Flask, Sci-kit Learn, how to integrate them together, and most significantly, how to design a recommender system and connect it to the UI.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## What's next for Vision
+We would like to improve the search bar to have a dropdown as the user is typing and perhaps incorporate autocomplete using NLP.
+Technologies were used in this project:
+ - React
+ - Firebase
+ - Flask
+ - Pandas
+ - Sci-kit Learn
+ - Seaborn
+ - Node.js
+ - Bootstrap
+ - Ant Design

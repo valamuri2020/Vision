@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Card,
-  Header,
-  SubData,
-  Stats,
-} from "./dasboardStyle.jsx";
+import { Card, Header, SubData, Stats } from "./dasboardStyle.jsx";
 import { HiLocationMarker } from "react-icons/hi";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { FaGlobeAmericas } from "react-icons/fa";
@@ -52,7 +47,7 @@ export default function DashboardCard({
         <SubData>
           <Stats>
             <div>Acceptance Rate</div>
-            <div>{ADM_RATE_ALL * 100}%</div>
+            <div>{(ADM_RATE_ALL * 100).toFixed(2)}%</div>
           </Stats>
           {/* avg cost is a value which depends person to person so recommendation cards do not have avg_cost */}
           {AVG_COST && (
@@ -72,7 +67,7 @@ export default function DashboardCard({
         </SubData>
         {!recommendation && (
           <SubData>
-            <div>{ADD_NOTES ?? "no notes"}</div>
+            <div>{ADD_NOTES ?? ""}</div>
           </SubData>
         )}
         <SubData>

@@ -151,7 +151,7 @@ export default function ListCard({ collegeId, ...props }) {
         <FormGroup>
           <Heading>Acceptance %</Heading>
           <Input
-            value={selectedCollege?.["ADM_RATE_ALL"]}
+            value={(selectedCollege?.["ADM_RATE_ALL"]*100).toFixed(2)}
             onChange={(e) => handleChange(e.target.value, "ADM_RATE_ALL")}
           />
         </FormGroup>

@@ -1,8 +1,6 @@
 import styled from "styled-components";
-import { Col } from "react-bootstrap";
 
 const mobileSize = "768px";
-const darkpink = "#853F3F";
 
 
 export const Container = styled.div`

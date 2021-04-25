@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Header, SubData, Stats } from "./dasboardStyle.jsx";
+import { Card, Header, SubData, Stats } from "./dashboardStyle.jsx";
 import { HiLocationMarker } from "react-icons/hi";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { FaGlobeAmericas } from "react-icons/fa";
@@ -28,10 +28,14 @@ export default function DashboardCard({
     ADD_NOTES,
   } = college;
 
-  const iconStyle = { fontSize: "24px", marginRight: "10px" };
-
   const darkpink = "#853F3F";
   const palepink = "#f2b8b8";
+
+  const iconStyle = {
+    fontSize: "20px",
+    marginRight: "10px",
+    color: recommendation && darkpink,
+  };
 
   const history = useHistory();
   const params = new URLSearchParams();
@@ -48,7 +52,12 @@ export default function DashboardCard({
     >
       <>
         <Header>
-          <div>{INSTNM}</div>
+          <div>
+            {INSTNM}{" "}
+            <a href={INSTURL} target="_blank">
+              <FaGlobeAmericas style={iconStyle} />
+            </a>
+          </div>
           <div>
             <HiLocationMarker /> {CITY}, {STABBR}
           </div>
@@ -85,9 +94,6 @@ export default function DashboardCard({
               <FiEdit style={iconStyle} />
             </a>
           )}
-          <a href={INSTURL} target="_blank">
-            <FaGlobeAmericas style={iconStyle} />
-          </a>
           {recommendation && (
             <AiFillPlusCircle style={iconStyle} onClick={navigatoToList} />
           )}

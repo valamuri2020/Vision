@@ -1,7 +1,10 @@
 import styled from "styled-components";
+import { Button } from "react-bootstrap";
 
 const mobileSize = "768px";
-
+const darkpink = "#853F3F";
+const palepink = "#f2b8b8";
+const lightpink = "#F06B6B";
 
 export const Container = styled.div`
   margin: 5rem 4rem;
@@ -36,7 +39,7 @@ export const Card = styled.div`
   flex-direction: column;
   width: 19rem;
   justify-content:space-between;
-  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;
+  box-shadow: 0px 6px 6px rgb(0 0 0 / 14%), 0px 6px 9px rgb(0 0 0 / 12%), 6px 6px 9px rgb(0 0 0 / 20%);
   @media only screen and (max-width: ${mobileSize}) {
     padding: 1em;
     justify-content: center;
@@ -45,7 +48,7 @@ export const Card = styled.div`
 `;
 
 export const AddCard = styled.div`
-  border: 2px dashed black;
+  border: 2px dashed grey;
   border-radius: 1rem;
   display: flex;
   min-height: 10rem;
@@ -55,6 +58,9 @@ export const AddCard = styled.div`
   margin: 0 1em 1em 0;
   max-width: 100rem;
   box-shadow:1px 11px 9px 2px rgb(0 0 0 / 39%);
+  :hover {
+    background-color:${palepink};
+  }
   @media only screen and (max-width: ${mobileSize}) {
     flex-direction: column;
     padding: 1em;

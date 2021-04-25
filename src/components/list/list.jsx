@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "../dashboard/dasboardStyle.jsx";
+import { Container } from "../dashboard/dashboardStyle.jsx";
 import ListCard from "./listCard.jsx";
 import Navbar from "../Navbar/Navbar";
 import {

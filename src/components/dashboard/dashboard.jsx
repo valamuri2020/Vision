@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, AddCard, SubContainer } from "./dasboardStyle.jsx";
+import { Container, AddCard, SubContainer } from "./dashboardStyle.jsx";
 import { RiAddCircleFill } from "react-icons/ri";
 import DashboardCard from "./dashboardCard.jsx";
 import { Link } from "react-router-dom";

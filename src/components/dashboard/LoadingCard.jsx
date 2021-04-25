@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "./dasboardStyle.jsx";
+import { Card } from "./dashboardStyle.jsx";
 import { Spinner } from "reactstrap";
 
 export default function LoadingCard({ recommendation }) {

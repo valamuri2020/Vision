@@ -11,7 +11,9 @@ export default function LoadingCard({ recommendation }) {
       color={recommendation && palepink}
       textColor={recommendation && darkpink}
     >
-      <Spinner color="danger" />
+      <div>
+        <Spinner style={{alignSelf:'center'}} color="danger" />
+      </div>
     </Card>
   );
 }

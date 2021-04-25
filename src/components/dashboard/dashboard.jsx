@@ -90,20 +90,20 @@ export const Dashboard = ({ ...props }) => {
   // view college list
   const collegeCards = colleges.map((val, index) => (
     <DashboardCard
-      deleteCollege={deleteCollege}
       addCollegeToList={addCollegeToList}
       college={val}
       key={index}
+      deleteCollege={deleteCollege}
     />
   ));
 
   const recommendationCard = recommendations.map((val, index) => (
     <DashboardCard
-      deleteCollege={deleteCollege}
       addCollegeToList={addCollegeToList}
       college={val}
       key={index}
       recommendation={true}
+      deleteCollege={deleteCollege}
     />
   ));
 

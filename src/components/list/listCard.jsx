@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import firebase from "firebase";
 import { auth } from "../../firebase";
 
-export default function ListCard({ collegeId, ...props }) {
+export default function ListCard({ collegeId, name, ...props }) {
   const db = firebase.firestore();
   const [inputValue, setInputValue] = useState();
   const [colleges, setColleges] = useState([]);
@@ -26,7 +26,7 @@ export default function ListCard({ collegeId, ...props }) {
       let inputValueToCompare = inputValue
         .split(" ")
         .map((word) => {
-          // if the value contains word 'of', keep it unchanged
+          // if the university name contains word 'of', keep it unchanged
           if (word === "of") return "of";
           return word[0].toUpperCase() + word.substring(1);
         })
@@ -77,15 +77,42 @@ export default function ListCard({ collegeId, ...props }) {
     // if a collegeId is passed as a parameter, prefill the text boxes with college info
     // find the college selected by finding the unique document id for the college in the user's list
     if (collegeId) {
+      // query value is a string and UNITID in db is a number type,
+      // cannot compare string and number, so parse int from collegeId
+      collegeId = parseInt(collegeId);
+      console.log("checking using collegeId");
+
       db.collection("users")
         .doc(auth.currentUser.uid)
         .collection("colleges")
-        .doc(`${collegeId}`)
+        .where("UNITID", "==", collegeId)
         .get()
         .then((response) => {
-          console.log(response.data());
-          setSelectedCollege(response.data());
+          let temp = [];
+          response.forEach((doc) => {
+            temp = [...temp, { ...doc.data() }];
+          });
+          setSelectedCollege(temp[0]);
+          console.log(temp);
         });
+      return;
+    }
+    // if the user is adding a university to their list from recommendation,
+    // name is passed as query value
+    if (name) {
+      console.log("checking using name");
+      db.collection("colleges")
+        .where("INSTNM", "==", name)
+        .get()
+        .then((response) => {
+          let temp = [];
+          response.forEach((doc) => {
+            temp = [...temp, { ...doc.data() }];
+          });
+          setSelectedCollege(temp[0]);
+          console.log(temp);
+        });
+      return;
     }
   }, []);
 
@@ -123,10 +150,12 @@ export default function ListCard({ collegeId, ...props }) {
         <FormGroup>
           <Heading>AVG Cost</Heading>
           {/* if university is selected, show finance calculator for applicable institute and let users calculate it for themselves*/}
-          {selectedCollege?.length > 0 && (
+          {selectedCollege?.["NPCURL"] && (
             <div>
-              To find out the estimated costs for you, visit the institute's
-              official website: <a>{selectedCollege?.["NPCURL"]}</a>
+              To find out the estimated costs for you,{" "}
+              <a href={selectedCollege?.["NPCURL"]} target="_blank">
+                visit the institute's official website
+              </a>
             </div>
           )}
           <Input
@@ -151,7 +180,7 @@ export default function ListCard({ collegeId, ...props }) {
         <FormGroup>
           <Heading>Acceptance %</Heading>
           <Input
-            value={(selectedCollege?.["ADM_RATE_ALL"]*100).toFixed(2)}
+            value={(selectedCollege?.["ADM_RATE_ALL"] * 100).toFixed(2)}
             onChange={(e) => handleChange(e.target.value, "ADM_RATE_ALL")}
           />
         </FormGroup>
@@ -178,17 +207,15 @@ export default function ListCard({ collegeId, ...props }) {
           </Button>
         </Link>
       ) : (
-        <Link to="/">
-          <Button
-            size="lg"
-            block
-            style={{ margin: "10px 0px" }}
-            color="danger"
-            disabled
-          >
-            Submit
-          </Button>
-        </Link>
+        <Button
+          size="lg"
+          block
+          style={{ margin: "10px 0px" }}
+          color="danger"
+          disabled
+        >
+          Submit
+        </Button>
       )}
     </Card>
   );

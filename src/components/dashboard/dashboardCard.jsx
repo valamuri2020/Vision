@@ -5,17 +5,18 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import { FaGlobeAmericas } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
+import { useHistory } from "react-router-dom";
 
 export default function DashboardCard({
   college,
   val,
   recommendation,
-  deleteCollege,
   addCollegeToList,
+  deleteCollege,
   ...props
 }) {
   const {
-    id,
+    UNITID,
     INSTNM,
     CITY,
     ADM_RATE_ALL,
@@ -31,6 +32,14 @@ export default function DashboardCard({
 
   const darkpink = "#853F3F";
   const palepink = "#f2b8b8";
+
+  const history = useHistory();
+  const params = new URLSearchParams();
+
+  const navigatoToList = () => {
+    params.append("name", `${INSTNM}`);
+    history.push({ pathname: "/list", search: params.toString() });
+  };
 
   return (
     <Card
@@ -52,8 +61,8 @@ export default function DashboardCard({
           {/* avg cost is a value which depends person to person so recommendation cards do not have avg_cost */}
           {AVG_COST && (
             <Stats>
-              <div>Avg cost after aid</div>
-              <div>${AVG_COST / 1000}K</div>
+              <div>Your cost after aid</div>
+              <div>${parseInt(AVG_COST)}K</div>
             </Stats>
           )}
           <Stats>
@@ -71,19 +80,17 @@ export default function DashboardCard({
           </SubData>
         )}
         <SubData>
-          <a href={`/list/${id}`}>
-            <FiEdit style={iconStyle} />
-          </a>
-          {recommendation && (
-            <AiFillPlusCircle
-              style={iconStyle}
-              onClick={() => addCollegeToList(college)}
-            />
+          {!recommendation && (
+            <a href={`/list/${UNITID}`}>
+              <FiEdit style={iconStyle} />
+            </a>
           )}
           <a href={INSTURL} target="_blank">
-            {" "}
             <FaGlobeAmericas style={iconStyle} />
           </a>
+          {recommendation && (
+            <AiFillPlusCircle style={iconStyle} onClick={navigatoToList} />
+          )}
           {!recommendation && (
             <AiOutlineDelete
               style={{ ...iconStyle, color: "red" }}

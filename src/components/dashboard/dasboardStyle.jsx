@@ -36,6 +36,7 @@ export const Card = styled.div`
   flex-direction: column;
   width: 19rem;
   justify-content:space-between;
+  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;
   @media only screen and (max-width: ${mobileSize}) {
     padding: 1em;
     justify-content: center;
@@ -53,6 +54,7 @@ export const AddCard = styled.div`
   align-items: center;
   margin: 0 1em 1em 0;
   max-width: 100rem;
+  box-shadow:1px 11px 9px 2px rgb(0 0 0 / 39%);
   @media only screen and (max-width: ${mobileSize}) {
     flex-direction: column;
     padding: 1em;

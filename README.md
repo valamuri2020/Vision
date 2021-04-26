@@ -26,7 +26,7 @@ Users can easily search a specific university they want to add by using a search
 User data is sent to the ML algorithm when the dashboard has loaded through a REST API built using Flask. It responds with the recommendations which are then displayed in pink underneath the user's list. 
 
 ## Challenges we overcame
-<b>Connecting ML to UI</b>
+
 We connected the Machine Learning component to the React front end by utilizing Flask, a back-end python framework. Our flask implementation is a RESTful API which stores our machine learning python scripts. This allows users to make a POST request with their college list and retrieve back a list of recommendations. 
 
 Challenges we ran into while acheving this were CORS or Cross-Origin Resourcing Sharing errors. We had to delve deep into the our package.json file and add a proxy attribute to solve this. On the flask side, we had to research and tinker with the flask api to resolve with the CORS error.

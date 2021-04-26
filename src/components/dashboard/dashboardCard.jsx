@@ -36,17 +36,13 @@ export default function DashboardCard({
   const darkpink = "#853F3F";
   const palepink = "#f2b8b8";
 
-  const iconStyle = {
-    fontSize: "20px",
-    marginRight: "10px",
-    color: recommendation && darkpink,
-  };
-
   const history = useHistory();
   const params = new URLSearchParams();
 
   const navigatoToList = () => {
     params.append("name", `${INSTNM}`);
+    // if the user wants to add an institution from recommendation, navigate to list and then allow addition
+    // to find the selected uni, the name is sent as a query
     history.push({ pathname: "/list", search: params.toString() });
   };
 
@@ -63,7 +59,7 @@ export default function DashboardCard({
               {recommendation ? (
                 <WebsiteIcon color={darkpink} />
               ) : (
-                <WebsiteIcon />
+                <WebsiteIcon/>
               )}
             </a>
           </div>

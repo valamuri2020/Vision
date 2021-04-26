@@ -20,30 +20,30 @@ export const Dashboard = ({ ...props }) => {
       .get()
       .then((response) => {
         let temp = [];
-        // each document manually coded a unique id assigned in firebase
         response.forEach((doc) => {
-          temp = [...temp, { ...doc.data(), id: doc.id }];
+          temp = [...temp, doc.data()];
         });
         // set the list of colleges to view
         getUsersRecommendations(temp);
         setColleges(temp);
-        console.log(temp);
       })
       .catch((error) => {
         console.error(error);
       });
   };
 
-  const getUsersRecommendations = (colleges) => {
+  const getUsersRecommendations = (usersCollegeList) => {
     fetch(`/recommend`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(colleges),
+      body: JSON.stringify(usersCollegeList),
     })
       .then((response) => response.json())
       .then((data) => {
+        // if the college exists in the users list, do not show it
+        data = data.filter((val) => !usersCollegeList.includes(val));
         setRecommendations(data);
       })
       .catch((err) => console.log(err));
@@ -72,7 +72,6 @@ export const Dashboard = ({ ...props }) => {
 
   const addCollegeToList = (college) => {
     const add = [...colleges, college];
-
     setColleges(add);
 
     db.collection("users")

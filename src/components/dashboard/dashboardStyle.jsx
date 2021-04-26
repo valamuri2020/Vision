@@ -8,6 +8,7 @@ const mobileSize = "768px";
 const darkpink = "#853F3F";
 const palepink = "#f2b8b8";
 const lightpink = "#F06B6B";
+const darkblue = "#18529e";
 
 export const AddIcon = styled(AiFillPlusCircle)`
   color: ${lightpink};
@@ -32,14 +33,16 @@ export const EditIcon = styled(FiEdit)`
   font-size: 24px;
   &:hover {
     cursor: pointer;
-    color: green;
+    color: ${darkblue};
   }
 `;
 export const WebsiteIcon = styled(FaGlobeAmericas)`
-  font-size:20px;
-  color: ${(props) => props.color ?? "black"}
+  color:${props => props.color ?? 'black'};
+  font-size: 20px;
+  margin-right: 10px;
   :hover {
-    color:blue;
+    cursor: pointer;
+    color: grey;
   }
 `;
 
@@ -65,7 +68,7 @@ export const SubContainer = styled.div`
   }
 `;
 export const Card = styled.div`
-  border: 1px solid black;
+  border: 1px solid ${palepink};
   border-radius: 0.6rem;
   display: flex;
   min-height: 8rem;
@@ -86,13 +89,15 @@ export const Card = styled.div`
 `;
 
 export const Loading = styled.div`
-  display:flex;
-  justify-content:center;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const AddCard = styled.div`
-  border: 2px dashed grey;
+  border: 2px dashed ${palepink};
   border-radius: 1rem;
+  cursor:pointer;
   display: flex;
   min-height: 10rem;
   padding: 2em;
@@ -102,7 +107,7 @@ export const AddCard = styled.div`
   max-width: 100rem;
   box-shadow: 1px 11px 9px 2px rgb(0 0 0 / 39%);
   :hover {
-    background-color: ${palepink};
+    background-color: ${darkpink};
   }
   @media only screen and (max-width: ${mobileSize}) {
     flex-direction: column;

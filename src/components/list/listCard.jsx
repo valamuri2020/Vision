@@ -116,14 +116,6 @@ export default function ListCard({ collegeId, name, ...props }) {
     }
   }, []);
 
-  const searchOptions = colleges?.map((college, key) => {
-    return (
-      <College key={key} onClick={() => setSelectedCollege(college)}>
-        {college["INSTNM"]}
-      </College>
-    );
-  });
-
   return (
     <Card>
       <Form onSubmit={handleSubmit}>
@@ -139,8 +131,14 @@ export default function ListCard({ collegeId, name, ...props }) {
               {" "}
               Submit{" "}
             </Button>
-            {searchOptions}
           </Search>
+          {colleges?.map((college, key) => {
+            return (
+              <College key={key} onClick={() => setSelectedCollege(college)}>
+                {college["INSTNM"]}
+              </College>
+            );
+          })}
         </FormGroup>
         <FormGroup>
           <Heading>Location</Heading>

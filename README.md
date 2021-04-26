@@ -17,21 +17,19 @@ Enter Vision. Sign up with your email to easily find and add the colleges you wa
 
 We used a variety of software development practices over the duration of this project. Firstly, using Git for version control proved incredibly useful. It allowed us to delegated tasks and work on separate portions to guarantee smooth collaboration.
 
-The app boasts authentication with email and passoword powered by Firebase. Firebase Cloud Firestore also served as our database which allowed us to connect the current user with their data.
+The app boasts authentication with email and passoword powered by Firebase. Firebase Cloud Firestore also served as our database which allowed us to connect the current user with their data. When a user updates their list through the responsive React frontend, those changes are immediately reflected in the database.
 
-After finding college data from the U.S. Department of Education, we converted that into JSON and mass uploaded it to the database using a Node.js script and Firebase Admin permissions.
+After finding college data from the U.S. Department of Education, we converted that data into JSON format and mass uploaded it to the database using a Node.js script and Firebase Admin permissions.
 
-When a user updates their list through the responsive React frontend, those changes are immediately reflected in the database.
-
-Users can easily search a specific university they want to add by using a search bar. To retrieve this, we use a simple query in cloud firestore which finds by the institute's name.
+Users can easily search for a specific university they want to add by using a search bar. To retrieve this, we use a simple Cloud Firestore query which finds by the institute's name.
 
 User data is sent to the ML algorithm when the dashboard has loaded through a REST API built using Flask. It responds with the recommendations which are then displayed in pink underneath the user's list.
 
 ## Challenges we overcame
 
-We connected the Machine Learning component to the React front end by utilizing Flask, a back-end python framework. Our flask implementation is a RESTful API which stores our machine learning python scripts. This allows users to make a POST request with their college list and retrieve back a list of recommendations.
+We connected the Machine Learning component to the React front end by utilizing Flask, a back-end python framework. Our Flask implementation is a REST API which stores our machine learning python scripts. This allows users to make a POST request with their college list and retrieve back a list of recommendations.
 
-Challenges we ran into while acheving this were CORS or Cross-Origin Resourcing Sharing errors. We had to delve deep into the our package.json file and add a proxy attribute to solve this. On the flask side, we had to research and tinker with the flask api to resolve with the CORS error.
+Challenges we ran into while acheving this were CORS or Cross-Origin Resourcing Sharing errors. We had to delve deep into the our package.json file and add a proxy attribute to solve this. On the backend, we had to research and tinker with the Flask API to resolve the CORS error.
 
 We are very glad to have each other to help overcome challenges, debug and we certainly learnt a lot and had fun with it throughout!
 

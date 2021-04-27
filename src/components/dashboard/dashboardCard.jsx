@@ -16,7 +16,6 @@ export default function DashboardCard({
   college,
   val,
   recommendation,
-  addCollegeToList,
   deleteCollege,
   ...props
 }) {
@@ -58,8 +57,8 @@ export default function DashboardCard({
       <>
         <Header>
           <div>
-            {INSTNM}{" "}
-            <a href={INSTURL} target="_blank">
+            {INSTNM}
+            <a href={`https://${INSTURL}`}>
               {recommendation ? (
                 <WebsiteIcon color={darkpink} />
               ) : (
@@ -80,7 +79,7 @@ export default function DashboardCard({
           {AVG_COST && (
             <Stats>
               <div>Your cost after aid</div>
-              <div>${parseInt(AVG_COST)}K</div>
+              <div>${(parseInt(AVG_COST))}</div>
             </Stats>
           )}
           <Stats>

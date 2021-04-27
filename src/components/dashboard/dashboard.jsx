@@ -11,10 +11,12 @@ import LoadingCard from "./LoadingCard.jsx";
 export const Dashboard = ({ ...props }) => {
   const [colleges, setColleges] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
+  const [loading, setLoading] = useState(true);
   const db = firebase.firestore();
 
   const getUsersList = () => {
-    db.collection("users")
+    return db
+      .collection("users")
       .doc(auth.currentUser.uid)
       .collection("colleges")
       .get()
@@ -25,7 +27,11 @@ export const Dashboard = ({ ...props }) => {
           temp = [...temp, { ...doc.data(), id: doc.id }];
         });
         // set the list of colleges to view
-        getUsersRecommendations(temp);
+        if (temp.length > 0) {
+          getUsersRecommendations(temp);
+        } else {
+          setLoading(false);
+        }
         setColleges(temp);
         console.log(temp);
       })
@@ -44,7 +50,11 @@ export const Dashboard = ({ ...props }) => {
     })
       .then((response) => response.json())
       .then((data) => {
+        // if the college exists in the users list, do not show it
+        data = data.filter((val) => !colleges.includes(val));
         setRecommendations(data);
+        // after recommendation is fetched, this means everything is loaded and set loading to false
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   };
@@ -57,12 +67,14 @@ export const Dashboard = ({ ...props }) => {
   const deleteCollege = (college) => {
     const { id } = college;
 
+    // extract the college's unique id, filter it out from the state array
     const filteredList = colleges.filter((value) => {
       return value.id !== id;
     });
-
+    // update with the filtered array
     setColleges(filteredList);
 
+    // find the college in the users' college collection and find by id then delete
     db.collection("users")
       .doc(auth.currentUser.uid)
       .collection("colleges")
@@ -70,44 +82,19 @@ export const Dashboard = ({ ...props }) => {
       .delete();
   };
 
-  const addCollegeToList = (college) => {
-    const add = [...colleges, college];
-
-    setColleges(add);
-
-    db.collection("users")
-      .doc(auth.currentUser.uid)
-      .collection("colleges")
-      .add(college)
-      .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
-      })
-      .catch((error) => {
-        console.error("Error adding document: ", error);
-      });
-  };
-
   // view college list
   const collegeCards = colleges.map((val, index) => (
-    <DashboardCard
-      addCollegeToList={addCollegeToList}
-      college={val}
-      key={index}
-      deleteCollege={deleteCollege}
-    />
+    <DashboardCard college={val} key={index} deleteCollege={deleteCollege} />
   ));
 
   const recommendationCard = recommendations.map((val, index) => (
     <DashboardCard
-      addCollegeToList={addCollegeToList}
       college={val}
       key={index}
       recommendation={true}
       deleteCollege={deleteCollege}
     />
   ));
-
-  const loadingCards = <LoadingCard recommendation={true} />;
 
   return (
     <>
@@ -117,7 +104,13 @@ export const Dashboard = ({ ...props }) => {
           <h3>Your List</h3>
         </SubContainer>
         <SubContainer>
-          {colleges.length > 0 ? collegeCards : loadingCards}
+          {/* if the results are still being fetched, show loading  */}
+          {/* if results are fetched, show results else show nothing */}
+          {loading ? (
+            <LoadingCard />
+          ) : (
+            !loading && colleges.length > 0 && collegeCards
+          )}
           <AddCard>
             <Link to="/list">
               <RiAddCircleFill style={{ fontSize: "4em", color: "#F06B6B" }} />
@@ -128,7 +121,16 @@ export const Dashboard = ({ ...props }) => {
           <h3>College Recommendations</h3>
         </SubContainer>
         <SubContainer>
-          {recommendations.length > 0 ? recommendationCard : loadingCards}
+          {/* if the results are still being fetched, show loading  */}
+          {/* if results are fetched but empty, show statement */}
+          {/* else, show all results */}
+          {loading ? (
+            <LoadingCard recommendation={true} />
+          ) : !loading && recommendations.length === 0 ? (
+            <h4>Add colleges to your list to help you get the best matches</h4>
+          ) : (
+            recommendationCard
+          )}
         </SubContainer>
       </Container>
     </>

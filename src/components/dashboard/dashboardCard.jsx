@@ -1,51 +1,113 @@
 import React from "react";
 import {
-  Content,
   Card,
-  Information,
-} from "./dasboardStyle.jsx";
-import { HiLocationMarker } from 'react-icons/hi'
-import { SiGooglescholar } from 'react-icons/si'
-import { MdMonetizationOn } from 'react-icons/md'
-import { FaEdit } from 'react-icons/fa'
-import firebase from "firebase";
-import { auth } from "../../firebase";
-import { BsBookHalf, BsTrashFill } from 'react-icons/bs'
+  Header,
+  SubData,
+  Stats,
+  AddIcon,
+  WebsiteIcon,
+  EditIcon,
+  DeleteIcon,
+} from "./dashboardStyle.jsx";
+import { HiLocationMarker } from "react-icons/hi";
+import { useHistory } from "react-router-dom";
 
-export default function DashboardCard({ college, ...props }) {
-  const { DOCUMENT_ID, INSTNM, CITY, ADM_RATE_ALL, STABBR, AVG_COST, SAT_AVG_ALL, INSTURL, ACT_AVG, ADD_NOTES } = college;
+export default function DashboardCard({
+  college,
+  val,
+  recommendation,
+  deleteCollege,
+  ...props
+}) {
+  const {
+    UNITID,
+    INSTNM,
+    CITY,
+    ADM_RATE_ALL,
+    STABBR,
+    AVG_COST,
+    SAT_AVG_ALL,
+    INSTURL,
+    ACT_AVG,
+    ADD_NOTES,
+  } = college;
 
-  const iconStyle = { fontSize: '24px', margin: '0px 10px' }
-  const db = firebase.firestore();
+  const darkpink = "#853F3F";
+  const palepink = "#f2b8b8";
 
-  const deleteCollege = () => {
-    db.collection("users").doc(auth.currentUser.uid).collection("colleges").doc(`${DOCUMENT_ID}`).delete()
-    .then(() => {
-      console.log('college deleted')
-      // refresh the page after user deletes a college from list
-      window.location.reload(false);
-    })
-  }
+  const iconStyle = {
+    fontSize: "20px",
+    marginRight: "10px",
+    color: recommendation && darkpink,
+  };
+
+  const history = useHistory();
+  const params = new URLSearchParams();
+
+  const navigatoToList = () => {
+    params.append("name", `${INSTNM}`);
+    history.push({ pathname: "/list", search: params.toString() });
+  };
+
   return (
-    <Card>
-        <Information>
-          <Content>
-            <h3>{INSTNM}</h3>
-          </Content>
-          <Content> <HiLocationMarker style={iconStyle}/> {CITY}, {STABBR} </Content>
-          <Content> <a href={`/list/${DOCUMENT_ID}`}><FaEdit style={iconStyle}/>Edit this information</a></Content>
-          <Content color={"#a83a32"} onClick={deleteCollege}><BsTrashFill style={iconStyle}/>Delete</Content>
-        </Information>
-        {/* information about the academics focused info */}
-        <Information>
-          <Content> <SiGooglescholar style={iconStyle}/> Acceptance Rate: {ADM_RATE_ALL * 100}% </Content>
-          <Content color={"#46b3e6"}> <MdMonetizationOn style={iconStyle}/> Average Yearly Tuition: ${AVG_COST}</Content>
-          <Content color={"#30c735"}> <BsBookHalf style={iconStyle}/> Average ACT Score: {ACT_AVG}</Content>
-          <Content color={"#30c735"}> <BsBookHalf style={iconStyle}/> Average SAT Score: {SAT_AVG_ALL}</Content>
-        </Information>
-        <Information>
-          <Content>{ADD_NOTES ?? `none`}</Content>
-        </Information>
-  </Card>
+    <Card
+      color={recommendation && palepink}
+      textColor={recommendation && darkpink}
+    >
+      <>
+        <Header>
+          <div>
+            {INSTNM}
+            <a href={`https://${INSTURL}`}>
+              {recommendation ? (
+                <WebsiteIcon color={darkpink} />
+              ) : (
+                <WebsiteIcon />
+              )}
+            </a>
+          </div>
+          <div>
+            <HiLocationMarker /> {CITY}, {STABBR}
+          </div>
+        </Header>
+        <SubData>
+          <Stats>
+            <div>Acceptance Rate</div>
+            <div>{(ADM_RATE_ALL * 100).toFixed(2)}%</div>
+          </Stats>
+          {/* avg cost is a value which depends person to person so recommendation cards do not have avg_cost */}
+          {AVG_COST && (
+            <Stats>
+              <div>Your cost after aid</div>
+              <div>${(parseInt(AVG_COST))}</div>
+            </Stats>
+          )}
+          <Stats>
+            <div>Avg ACT</div>
+            <div>{Math.floor(ACT_AVG)}</div>
+          </Stats>
+          <Stats>
+            <div>Avg SAT</div>
+            <div>{SAT_AVG_ALL}</div>
+          </Stats>
+        </SubData>
+        {!recommendation && (
+          <SubData>
+            <div>{ADD_NOTES ?? ""}</div>
+          </SubData>
+        )}
+        <SubData>
+          {!recommendation && (
+            <a href={`/list/${UNITID}`}>
+              <EditIcon />
+            </a>
+          )}
+          {recommendation && <AddIcon onClick={navigatoToList} />}
+          {!recommendation && (
+            <DeleteIcon onClick={() => deleteCollege(college)} />
+          )}
+        </SubData>
+      </>
+    </Card>
   );
 }

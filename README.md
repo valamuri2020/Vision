@@ -13,6 +13,23 @@ Enter Vision. Sign up with your email to easily find and add the colleges you wa
 - Machine Learning algorithm using Sci-kit Learn combined with a RESTful API in Flask to recommend colleges
 - An intuitive and engaging user interface, search functionality, and routing with React, Firebase and Bootstrap
 
+## Demo
+- - - -
+### Register
+![Register](/gifs/register.gif)
+### Sign In
+![Register](/gifs/sign_in.gif)
+### Add a College
+![Add a College](/gifs/add_college.gif)
+### Add a Recommendation
+![Add a Recommendation](/gifs/add_recommendation.gif)
+### Edit a College
+![Edit a College](/gifs/edit_college.gif)
+### Delete a College
+![Delete a College](/gifs/delete_college.gif)
+### Sign Out
+![Sign Out](/gifs/sign_out.gif)
+- - - -
 ## How we built it
 
 We used a variety of software development practices over the duration of this project. Firstly, using Git for version control proved incredibly useful. It allowed us to delegated tasks and work on separate portions to guarantee smooth collaboration.

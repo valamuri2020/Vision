@@ -55,4 +55,4 @@ Technologies used in this project:
 
 ## What's next for Vision
 
-We would like to improve the search bar to have a dropdown as the user is typing and perhaps incorporate autocomplete using NLP.
+We would like to improve the search bar to have a dropdown as the user is typing and perhaps incorporate autocomplete using NLP

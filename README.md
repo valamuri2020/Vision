@@ -34,7 +34,7 @@ Enter Vision. Sign up with your email to easily find and add the colleges you wa
 
 We used a variety of software development practices over the duration of this project. Firstly, using Git for version control proved incredibly useful. It allowed us to delegated tasks and work on separate portions to guarantee smooth collaboration.
 
-The app boasts authentication with email and passoword powered by Firebase. Firebase Cloud Firestore also served as our database which allowed us to connect the current user with their data. When a user updates their list through the responsive React frontend, those changes are immediately reflected in the database.
+The app boasts authentication with email and password powered by Firebase. Firebase Cloud Firestore also served as our database which allowed us to connect the current user with their data. When a user updates their list through the responsive React frontend, those changes are immediately reflected in the database.
 
 After finding college data from the U.S. Department of Education, we converted that data into JSON format and mass uploaded it to the database using a Node.js script and Firebase Admin permissions.
 

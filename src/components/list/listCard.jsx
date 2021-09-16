@@ -15,6 +15,7 @@ export default function ListCard({ collegeId, name, ...props }) {
 
   const handleChange = (value, option) => {
     setSelectedCollege({ ...selectedCollege, [option]: value });
+    // keeping all other attributes same, change only one
   };
 
   const handleFilter = () => {

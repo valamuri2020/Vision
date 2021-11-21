@@ -9,7 +9,7 @@ export default function Navbar(props) {
   const [error, setError] = useState("");
   const { logout, currentUser } = useAuth();
   const history = useHistory();
-  
+
   const { displayName, email } = currentUser;
 
   const handleLogOut = async () => {
@@ -21,20 +21,31 @@ export default function Navbar(props) {
       console.log(err);
     }
   };
+
+  const redirectToInfoPage = () => {
+    history.push("/info");
+  };
+
   return (
     <Container>
       <Title>
-        <a href='/'>Vision</a>
+        <a href="/">Vision</a>
       </Title>
       {error && <Alert variant="warning">{error}</Alert>}
       <div>
         <Dropdown>
-          <Dropdown.Toggle variant="danger" style={{backgroundColor:'#f06b6b', border: 'none'}}>
+          <Dropdown.Toggle
+            variant="danger"
+            style={{ backgroundColor: "#f06b6b", border: "none" }}
+          >
             <FaUserCircle style={{ fontSize: "2em" }} />
           </Dropdown.Toggle>
           <Dropdown.Menu>
             {/* display name of user if found, else show email */}
             <Dropdown.Header>{displayName ?? email}</Dropdown.Header>
+            <Dropdown.Item onClick={redirectToInfoPage}>
+              Information
+            </Dropdown.Item>
             <Dropdown.Item onClick={handleLogOut}>Sign Out</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>

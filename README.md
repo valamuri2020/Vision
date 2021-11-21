@@ -14,22 +14,39 @@ Enter Vision. Sign up with your email to easily find and add the colleges you wa
 - An intuitive and engaging user interface, search functionality, and routing with React, Firebase and Bootstrap
 
 ## Demo
-- - - -
+
+---
+
 ### Register
-![Register](/gifs/register.gif)
+
+![Register](/assets/register.gif)
+
 ### Sign In
-![Register](/gifs/sign_in.gif)
+
+![Register](/assets/sign_in.gif)
+
 ### Add a College
-![Add a College](/gifs/add_college.gif)
+
+![Add a College](/assets/add_college.gif)
+
 ### Add a Recommendation
-![Add a Recommendation](/gifs/add_recommendation.gif)
+
+![Add a Recommendation](/assets/add_recommendation.gif)
+
 ### Edit a College
-![Edit a College](/gifs/edit_college.gif)
+
+![Edit a College](/assets/edit_college.gif)
+
 ### Delete a College
-![Delete a College](/gifs/delete_college.gif)
+
+![Delete a College](/assets/delete_college.gif)
+
 ### Sign Out
-![Sign Out](/gifs/sign_out.gif)
-- - - -
+
+![Sign Out](/assets/sign_out.gif)
+
+---
+
 ## How we built it
 
 We used a variety of software development practices over the duration of this project. Firstly, using Git for version control proved incredibly useful. It allowed us to delegated tasks and work on separate portions to guarantee smooth collaboration.

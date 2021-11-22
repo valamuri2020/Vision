@@ -12,6 +12,7 @@ Enter Vision. Sign up with your email to easily find and add the colleges you wa
 - Firestore is used to create user lists, edit their notes, delete colleges from lists and store all college data
 - Machine Learning algorithm using Sci-kit Learn combined with a RESTful API in Flask to recommend colleges
 - An intuitive and engaging user interface, search functionality, and routing with React, Firebase and Bootstrap
+- [Informative plots](/informative_plots.md) for an overview of scores by state
 
 ## Demo
 

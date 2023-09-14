@@ -54,10 +54,12 @@ def fetchRecommendations(user_input):
     for i in ids:
         result.append(df_further_reduced.loc[i])
 
-    res = []
-    # convert each recommended college df into a dictionary, append it into an array
-    for i in result:
-        res.append(i.to_dict(orient='records')[0])
+    # convert each recommended college into a dictionary
+    res = [i.to_dict(orient='records')[0] for i in result]
+    
+    # for i in result:
+    #     res.append(i.to_dict(orient='records')[0])
+    
     # convert list of dict to json format
     return jsonify(res)
 
